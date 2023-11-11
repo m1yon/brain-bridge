@@ -4,6 +4,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "next/core-web-vitals",
+    "plugin:tailwindcss/recommended",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -11,6 +12,11 @@ module.exports = {
     project: true,
     tsconfigRootDir: __dirname,
   },
-  "plugins": ["@typescript-eslint"],
-  "root": true
+  "plugins": ["tailwindcss", "@typescript-eslint"],
+  "root": true,
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn"],
+    }
+  }
 }
