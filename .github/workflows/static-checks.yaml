@@ -1,0 +1,112 @@
+name: Static checks
+on: push
+env:
+  FORCE_COLOR: 3
+jobs:
+  code:
+    name: Run code checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.2
+
+      - uses: pnpm/action-setup@v2.4.0
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: ^8.10.2
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+      - name: Check for `pnpm install` diff
+        id: pnpm_install_check
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git status --porcelain
+            exit 1
+          fi
+        continue-on-error: true
+      - name: Reset repo
+        run: git clean -fd && git reset --hard
+
+      - name: Run formatter
+        run: pnpm format
+      - name: Check for `pnpm format` diff
+        id: pnpm_format_check
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+          git status --porcelain
+            exit 1
+          fi
+        continue-on-error: true
+      - name: Reset repo
+        run: git clean -fd && git reset --hard
+
+      - name: Run linter
+        run: pnpm lint
+        id: pnpm_lint_check
+        continue-on-error: true
+
+      - name: run TypeScript compiler
+        id: type-check
+        run: pnpm run type-check
+        continue-on-error: true
+
+      - name: Results
+        run: |
+          FAIL=0
+          results_table="| Command | Status |\n| --- | --- |\n"
+
+          if [ "${{ steps.pnpm_install_check.outcome }}" == "failure" ]; then
+            results_table+="| pnpm install | ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm install | ✅ |\n"
+          fi
+
+          if [ "${{ steps.pnpm_format_check.outcome }}" == "failure" ]; then
+            results_table+="| pnpm format | ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm format | ✅ |\n"
+          fi
+
+          if [ "${{ steps.pnpm_lint_check.outcome }}" == "failure" ]; then
+            results_table+="| pnpm lint | ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm lint | ✅ |\n"
+          fi
+
+          if [ "${{ steps.type-check.outcome }}" == "failure" ]; then
+            results_table+="| pnpm type-check | ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm type-check | ✅ |\n"
+          fi
+
+          echo "Check Results:"
+          echo -e "$results_table" | column -t -s '|'
+
+          if [ $FAIL -eq 1 ]; then
+            exit 1
+          fi
