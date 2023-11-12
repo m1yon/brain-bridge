@@ -61,6 +61,19 @@ jobs:
       - name: Reset repo
         run: git clean -fd && git reset --hard
 
+      - name: Generate migrations
+        run: pnpm migrations:generate
+      - name: Check for `pnpm migrations:generate` diff
+        id: pnpm_migrations_generate
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+          git status --porcelain
+            exit 1
+          fi
+        continue-on-error: true
+      - name: Reset repo
+        run: git clean -fd && git reset --hard
+
       - name: Run linter
         run: pnpm lint
         id: pnpm_lint_check
@@ -102,6 +115,13 @@ jobs:
             FAIL=1
           else
             results_table+="| pnpm type-check | ✅ |\n"
+          fi
+
+          if [ "${{ steps.pnpm_migrations_generate.outcome }}" == "failure" ]; then
+            results_table+="| pnpm migrations:generate | ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm migrations:generate | ✅ |\n"
           fi
 
           echo "Check Results:"
