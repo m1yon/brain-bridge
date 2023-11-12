@@ -4,7 +4,7 @@ import { db } from '@/db'
 import { FlashCardOperations } from '../interfaces/IFlashCard'
 import { flashCards } from '@/db/schema'
 import { eq } from 'drizzle-orm'
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
 export const getAllFlashCards: FlashCardOperations['getAllFlashCards'] =
 	async () => {
@@ -16,7 +16,7 @@ export const createFlashCard: FlashCardOperations['createFlashCard'] = async (
 ) => {
 	await db.insert(flashCards).values(args)
 
-	revalidatePath('/')
+	revalidateTag('get-all-flash-cards')
 }
 
 export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
@@ -24,5 +24,5 @@ export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
 ) => {
 	await db.delete(flashCards).where(eq(flashCards.id, args.id))
 
-	revalidatePath('/')
+	revalidateTag('get-all-flash-cards')
 }
