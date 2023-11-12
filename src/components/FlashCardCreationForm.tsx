@@ -63,7 +63,10 @@ const FlashCardCreationForm = () => {
 							<FormItem>
 								<FormLabel>Definition</FormLabel>
 								<FormControl>
-									<Input placeholder="TypeScript" {...field} />
+									<Input
+										placeholder="a strongly typed programming language that builds on JavaScript"
+										{...field}
+									/>
 								</FormControl>
 								<FormDescription>
 									You will say this definition when the term is shown.
