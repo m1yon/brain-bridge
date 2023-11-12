@@ -27,8 +27,8 @@ const config: Config = {
 				accent: 'hsl(var(--accent))',
 				'accent-foreground': 'hsl(var(--accent-foreground))',
 
-				destructive: 'hsl(var(--accent))',
-				'destructive-foreground': 'hsl(var(--accent-foreground))',
+				destructive: 'hsl(var(--destructive))',
+				'destructive-foreground': 'hsl(var(--destructive-foreground))',
 
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

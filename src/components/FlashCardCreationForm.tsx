@@ -13,10 +13,11 @@ import {
 import { Input } from './primitives/Input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from './primitives/Button'
 
 const formSchema = z.object({
-	term: z.string(),
-	definition: z.string(),
+	term: z.string().min(1, 'Term is required'),
+	definition: z.string().min(1, 'Definition is required'),
 })
 
 const FlashCardCreationForm = () => {
@@ -28,42 +29,52 @@ const FlashCardCreationForm = () => {
 		},
 	})
 
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		console.log(values)
+	}
+
 	return (
 		<div className="w-full">
 			<Form {...form}>
-				<FormField
-					control={form.control}
-					name="term"
-					render={({ field }) => (
-						<FormItem className="mb-8">
-							<FormLabel>Term</FormLabel>
-							<FormControl>
-								<Input placeholder="TypeScript" {...field} />
-							</FormControl>
-							<FormDescription>
-								The term will be shown first, then you will provide the
-								definition.
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="definition"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Definition</FormLabel>
-							<FormControl>
-								<Input placeholder="TypeScript" {...field} />
-							</FormControl>
-							<FormDescription>
-								You will say this definition when the term is shown.
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+					<FormField
+						control={form.control}
+						name="term"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Term</FormLabel>
+								<FormControl>
+									<Input placeholder="TypeScript" {...field} />
+								</FormControl>
+								<FormDescription>
+									The term will be shown first, then you will provide the
+									definition.
+								</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<FormField
+						control={form.control}
+						name="definition"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Definition</FormLabel>
+								<FormControl>
+									<Input placeholder="TypeScript" {...field} />
+								</FormControl>
+								<FormDescription>
+									You will say this definition when the term is shown.
+								</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<Button type="submit">Submit</Button>
+				</form>
 			</Form>
 		</div>
 	)
