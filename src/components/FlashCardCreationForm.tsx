@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 const formSchema = z.object({
 	term: z.string(),
+	definition: z.string(),
 })
 
 const FlashCardCreationForm = () => {
@@ -23,17 +24,18 @@ const FlashCardCreationForm = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			term: '',
+			definition: '',
 		},
 	})
 
 	return (
-		<div className="max-w-lg">
+		<div className="w-full">
 			<Form {...form}>
 				<FormField
 					control={form.control}
 					name="term"
 					render={({ field }) => (
-						<FormItem>
+						<FormItem className="mb-8">
 							<FormLabel>Term</FormLabel>
 							<FormControl>
 								<Input placeholder="TypeScript" {...field} />
@@ -41,6 +43,22 @@ const FlashCardCreationForm = () => {
 							<FormDescription>
 								The term will be shown first, then you will provide the
 								definition.
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="definition"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Definition</FormLabel>
+							<FormControl>
+								<Input placeholder="TypeScript" {...field} />
+							</FormControl>
+							<FormDescription>
+								You will say this definition when the term is shown.
 							</FormDescription>
 							<FormMessage />
 						</FormItem>
