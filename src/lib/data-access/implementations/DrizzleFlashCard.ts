@@ -1,3 +1,5 @@
+'use server'
+
 import { db } from '@/db'
 import { FlashCardOperations } from '../interfaces/IFlashCard'
 import { flashCards } from '@/db/schema'

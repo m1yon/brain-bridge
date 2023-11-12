@@ -14,6 +14,7 @@ import { Input } from './primitives/Input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from './primitives/Button'
+import { flashCardService } from '@/services'
 
 const formSchema = z.object({
 	term: z.string().min(1, 'Term is required'),
@@ -29,15 +30,23 @@ const FlashCardCreationForm = () => {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values)
-	}
-
 	return (
 		<div className="w-full">
 			<Form {...form}>
-				{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+				<form
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					action={async () => {
+						const valid = await form.trigger()
+
+						if (valid) {
+							await flashCardService.createFlashCard(form.getValues())
+							form.reset()
+						}
+
+						return
+					}}
+					className="space-y-8"
+				>
 					<FormField
 						control={form.control}
 						name="term"
