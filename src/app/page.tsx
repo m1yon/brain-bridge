@@ -1,11 +1,9 @@
-import { Input } from '@/components/primitives/Input'
+import FlashCardCreationForm from '@/components/FlashCardCreationForm'
 
 export default function Home() {
 	return (
-		<main>
-			<div className="max-w-lg">
-				<Input placeholder="Type something here" />
-			</div>
+		<main className="m-8">
+			<FlashCardCreationForm />
 		</main>
 	)
 }
