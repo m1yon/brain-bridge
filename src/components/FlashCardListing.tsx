@@ -1,18 +1,13 @@
 import { flashCardService } from '@/services'
-import { Card, CardContent, CardHeader, CardTitle } from './primitives/Card'
+import FlashCard from './FlashCard'
 
 const FlashCardListing = async () => {
 	const flashCards = await flashCardService.getAllFlashCards()
 
 	return (
 		<div className="mt-8 flex flex-col gap-2">
-			{flashCards.map(({ id, term, definition }) => (
-				<Card key={id}>
-					<CardHeader>
-						<CardTitle>{term}</CardTitle>
-					</CardHeader>
-					<CardContent>{definition}</CardContent>
-				</Card>
+			{flashCards.map((props) => (
+				<FlashCard key={props.id} {...props} />
 			))}
 		</div>
 	)

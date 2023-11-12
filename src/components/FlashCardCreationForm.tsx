@@ -42,8 +42,6 @@ const FlashCardCreationForm = () => {
 							await flashCardService.createFlashCard(form.getValues())
 							form.reset()
 						}
-
-						return
 					}}
 					className="space-y-8"
 				>
