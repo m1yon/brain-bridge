@@ -73,7 +73,7 @@ const FlashCardCreationForm = () => {
 						)}
 					/>
 
-					<Button type="submit">Submit</Button>
+					<Button type="submit">Create</Button>
 				</form>
 			</Form>
 		</div>
