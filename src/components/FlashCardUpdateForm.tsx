@@ -14,7 +14,7 @@ import { Input } from './primitives/Input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from './primitives/Button'
-import { flashCardService } from '@/services'
+import { FlashCardService } from '@/services'
 import { CardContent, CardFooter, CardHeader } from './primitives/Card'
 
 const formSchema = z.object({
@@ -55,7 +55,7 @@ const FlashCardUpdateForm = ({
 					const valid = await form.trigger()
 
 					if (valid) {
-						await flashCardService.updateFlashCard(form.getValues())
+						await FlashCardService.updateFlashCard(form.getValues())
 						onComplete()
 						form.reset()
 					}

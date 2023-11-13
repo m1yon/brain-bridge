@@ -1,7 +1,7 @@
 'use client'
 
 import { FlashCard } from '@/lib/data-access/interfaces/IFlashCard'
-import { flashCardService } from '@/services'
+import { FlashCardService } from '@/services'
 import {
 	Card,
 	CardContent,
@@ -18,7 +18,7 @@ type FlashCardProps = FlashCard
 
 const FlashCard = ({ id, term, definition }: FlashCardProps) => {
 	const [isEditing, setIsEditing] = useState(false)
-	const deleteFlashCardWithId = flashCardService.deleteFlashCard.bind(null, {
+	const deleteFlashCardWithId = FlashCardService.deleteFlashCard.bind(null, {
 		id,
 	})
 

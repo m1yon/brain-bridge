@@ -22,6 +22,20 @@
       "when": 1699827240921,
       "tag": "0002_polite_matthew_murdock",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1699836228592,
+      "tag": "0003_regular_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1699836656876,
+      "tag": "0004_foamy_groot",
+      "breakpoints": true
     }
   ]
 }

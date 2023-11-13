@@ -14,23 +14,22 @@ import { Input } from './primitives/Input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from './primitives/Button'
-import { FlashCardService } from '@/services'
+import { SetService } from '@/services'
 import { useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from './primitives/Card'
 import { PlusIcon } from '@radix-ui/react-icons'
 
 const formSchema = z.object({
-	term: z.string().min(1, 'Term is required'),
-	definition: z.string().min(1, 'Definition is required'),
+	name: z.string().min(1, 'Name is required'),
+	description: z.string().optional(),
 })
 
-const FlashCardCreationForm = () => {
+const SetCreationForm = () => {
 	const [isCreating, setIsCreating] = useState(false)
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			term: '',
-			definition: '',
+			name: '',
 		},
 	})
 
@@ -55,29 +54,29 @@ const FlashCardCreationForm = () => {
 						const valid = await form.trigger()
 
 						if (valid) {
-							await FlashCardService.createFlashCard(form.getValues())
+							await SetService.createSet({
+								...form.getValues(),
+								description: form.getValues().description || null,
+							})
 							setIsCreating(false)
 							form.reset()
 						}
 					}}
 				>
 					<CardHeader>
-						<h2 className="text-lg font-bold">Create Flash Card</h2>
+						<h2 className="text-lg font-bold">Create Set</h2>
 					</CardHeader>
 					<CardContent className="space-y-8">
 						<FormField
 							control={form.control}
-							name="term"
+							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Term</FormLabel>
+									<FormLabel>Name</FormLabel>
 									<FormControl>
-										<Input placeholder="TypeScript" {...field} />
+										<Input placeholder="Web Development" {...field} />
 									</FormControl>
-									<FormDescription>
-										The term will be shown first, then you will provide the
-										definition.
-									</FormDescription>
+									<FormDescription>The name of the set.</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
@@ -85,19 +84,17 @@ const FlashCardCreationForm = () => {
 
 						<FormField
 							control={form.control}
-							name="definition"
+							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Definition</FormLabel>
+									<FormLabel>Description</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="a strongly typed programming language that builds on JavaScript"
+											placeholder="Study material for my web development interviews"
 											{...field}
 										/>
 									</FormControl>
-									<FormDescription>
-										You will say this definition when the term is shown.
-									</FormDescription>
+									<FormDescription>The description of the set.</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
@@ -124,4 +121,4 @@ const FlashCardCreationForm = () => {
 	)
 }
 
-export default FlashCardCreationForm
+export default SetCreationForm

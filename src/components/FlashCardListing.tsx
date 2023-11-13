@@ -1,8 +1,8 @@
-import { flashCardService } from '@/services'
+import { FlashCardService } from '@/services'
 import FlashCard from './FlashCard'
 
 const FlashCardListing = async () => {
-	const flashCards = await flashCardService.cache.getAllFlashCards()
+	const flashCards = await FlashCardService.cache.getAllFlashCards()
 
 	return (
 		<div className="mb-4 flex flex-col gap-4">
