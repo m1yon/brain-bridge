@@ -1,12 +1,20 @@
-import { FlashCardService } from '@/services'
+import { SetService } from '@/services'
 import FlashCard from './FlashCard'
 
-const FlashCardListing = async () => {
-	const flashCards = await FlashCardService.cache.getAllFlashCards()
+type FlashCardListingProps = {
+	setId: string
+}
+
+const FlashCardListing = async ({ setId }: FlashCardListingProps) => {
+	const set = await SetService.getSet(setId)
+
+	if (!set) {
+		return null
+	}
 
 	return (
 		<div className="mb-4 flex flex-col gap-4">
-			{flashCards.map((props) => (
+			{set.flashCards.map((props) => (
 				<FlashCard key={props.id} {...props} />
 			))}
 		</div>

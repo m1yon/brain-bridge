@@ -5,8 +5,9 @@ export interface FlashCard {
 }
 
 export interface FlashCardOperations {
-	getAllFlashCards(): Promise<FlashCard[]>
-	createFlashCard(args: Pick<FlashCard, 'term' | 'definition'>): Promise<void>
+	createFlashCard(
+		args: { setId: string } & Pick<FlashCard, 'term' | 'definition'>,
+	): Promise<void>
 	deleteFlashCard(args: Pick<FlashCard, 'id'>): Promise<void>
 	updateFlashCard(
 		args: Pick<FlashCard, 'id'> & Partial<FlashCard>,

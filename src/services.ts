@@ -4,17 +4,8 @@ import * as drizzleSetOperations from './lib/data-access/implementations/Drizzle
 import { FlashCardOperations } from './lib/data-access/interfaces/IFlashCard'
 import { SetOperations } from './lib/data-access/interfaces/ISet'
 
-export const FlashCardService: FlashCardOperations & {
-	cache: Pick<FlashCardOperations, 'getAllFlashCards'>
-} = {
+export const FlashCardService: FlashCardOperations = {
 	...drizzleFlashCardOperations,
-	cache: {
-		getAllFlashCards: unstable_cache(
-			async () => FlashCardService.getAllFlashCards(),
-			['get-all-flash-cards'],
-			{ tags: ['get-all-flash-cards'] },
-		),
-	},
 }
 
 export const SetService: SetOperations & {

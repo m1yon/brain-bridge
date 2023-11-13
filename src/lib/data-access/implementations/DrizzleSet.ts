@@ -1,16 +1,24 @@
 'use server'
 
-import { set } from '@/db/schema'
+import { sets } from '@/db/schema'
 import { SetOperations } from '../interfaces/ISet'
 import { db } from '@/db'
 import { revalidateTag } from 'next/cache'
+import { eq } from 'drizzle-orm'
 
 export const getAllSets: SetOperations['getAllSets'] = async () => {
-	return db.query.set.findMany()
+	return db.query.sets.findMany()
 }
 
 export const createSet: SetOperations['createSet'] = async (args) => {
-	await db.insert(set).values(args)
+	await db.insert(sets).values(args)
 
 	revalidateTag('get-all-sets')
+}
+
+export const getSet: SetOperations['getSet'] = async (setId) => {
+	return db.query.sets.findFirst({
+		where: eq(sets.id, setId),
+		with: { flashCards: true },
+	})
 }

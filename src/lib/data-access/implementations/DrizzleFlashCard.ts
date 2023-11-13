@@ -6,11 +6,6 @@ import { flashCards } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { revalidateTag } from 'next/cache'
 
-export const getAllFlashCards: FlashCardOperations['getAllFlashCards'] =
-	async () => {
-		return db.query.flashCards.findMany()
-	}
-
 export const createFlashCard: FlashCardOperations['createFlashCard'] = async (
 	args,
 ) => {

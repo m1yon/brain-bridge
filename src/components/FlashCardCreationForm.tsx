@@ -18,17 +18,21 @@ import { FlashCardService } from '@/services'
 import { useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from './primitives/Card'
 import { PlusIcon } from '@radix-ui/react-icons'
+import { useParams } from 'next/navigation'
 
 const formSchema = z.object({
+	setId: z.string(),
 	term: z.string().min(1, 'Term is required'),
 	definition: z.string().min(1, 'Definition is required'),
 })
 
 const FlashCardCreationForm = () => {
+	const params = useParams()
 	const [isCreating, setIsCreating] = useState(false)
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
+			setId: String(params.setId),
 			term: '',
 			definition: '',
 		},
