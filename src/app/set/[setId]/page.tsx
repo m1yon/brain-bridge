@@ -1,11 +1,21 @@
 import FlashCardCreationForm from '@/components/FlashCardCreationForm'
 import FlashCardListing from '@/components/FlashCardListing'
+import { SetService } from '@/services'
 
-export default function SetPage({ params }: { params: { setId: string } }) {
+export default async function SetPage({
+	params,
+}: {
+	params: { setId: string }
+}) {
+	const set = await SetService.getSet(params.setId)
+
 	return (
 		<main className="mx-6 my-12">
-			<h1 className="mb-6 text-3xl font-bold">Flash Cards</h1>
-			<FlashCardListing setId={params.setId} />
+			<div className="mb-6">
+				<h1 className="text-3xl font-bold">{set?.name}</h1>
+				<p className="opacity-60">{set?.description}</p>
+			</div>
+			<FlashCardListing flashCards={set?.flashCards ?? []} />
 			<FlashCardCreationForm />
 		</main>
 	)

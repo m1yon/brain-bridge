@@ -1,20 +1,14 @@
-import { SetService } from '@/services'
+import { FlashCard as FlashCardType } from '@/lib/data-access/interfaces/IFlashCard'
 import FlashCard from './FlashCard'
 
 type FlashCardListingProps = {
-	setId: string
+	flashCards: FlashCardType[]
 }
 
-const FlashCardListing = async ({ setId }: FlashCardListingProps) => {
-	const set = await SetService.getSet(setId)
-
-	if (!set) {
-		return null
-	}
-
+const FlashCardListing = ({ flashCards }: FlashCardListingProps) => {
 	return (
 		<div className="mb-4 flex flex-col gap-4">
-			{set.flashCards.map((props) => (
+			{flashCards.map((props) => (
 				<FlashCard key={props.id} {...props} />
 			))}
 		</div>
