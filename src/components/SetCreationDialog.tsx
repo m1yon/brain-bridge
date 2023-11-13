@@ -19,12 +19,12 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from './primitives/Dialog'
 import { useState } from 'react'
+import SetCreationDialogFooter from './SetCreationDialogFooter'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
@@ -111,18 +111,7 @@ const SetCreationDialog = () => {
 								)}
 							/>
 						</div>
-						<DialogFooter>
-							<Button type="submit">Create</Button>
-							<Button
-								type="button"
-								variant="ghost"
-								onClick={() => {
-									setOpen(false)
-								}}
-							>
-								Cancel
-							</Button>
-						</DialogFooter>
+						<SetCreationDialogFooter onCancel={() => setOpen(false)} />
 					</form>
 				</Form>
 			</DialogContent>
