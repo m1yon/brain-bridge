@@ -11,7 +11,8 @@
 		"type-check": "tsc",
 		"format": "prettier . --write",
 		"migrations:generate": "drizzle-kit generate:pg",
-		"migrations:run": "tsx src/db/migrate.ts"
+		"migrations:run": "tsx src/db/migrate.ts",
+		"seed": "tsx src/db/seed.ts"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.2",
@@ -32,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@clack/prompts": "^0.7.0",
+		"@total-typescript/ts-reset": "^0.5.1",
 		"@types/node": "^20.9.0",
 		"@types/react": "^18.2.37",
 		"@types/react-dom": "^18.2.15",
