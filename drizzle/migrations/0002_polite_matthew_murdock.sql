@@ -1,1 +1,0 @@
-ALTER TABLE "flash_cards" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();

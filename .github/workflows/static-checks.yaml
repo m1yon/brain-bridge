@@ -7,10 +7,7 @@ jobs:
     name: Run code checks
     runs-on: ubuntu-latest
     env:
-      POSTGRES_HOST: fake
-      POSTGRES_USER: fake
-      POSTGRES_PASSWORD: fake
-      POSTGRES_DATABASE: fake
+      DATABASE_URL: fake
     steps:
       - name: Checkout
         uses: actions/checkout@v3

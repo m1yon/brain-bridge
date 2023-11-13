@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { migrate } from 'drizzle-orm/vercel-postgres/migrator'
+import { migrate } from 'drizzle-orm/postgres-js/migrator'
 import { db } from './index.js'
 import { intro, outro, spinner } from '@clack/prompts'
 
@@ -7,7 +7,7 @@ import { intro, outro, spinner } from '@clack/prompts'
 dotenv.config()
 dotenv.config({ path: '.env.local', override: true })
 
-intro('Vercel Postgres Migrations')
+intro('Supabase Migrations')
 
 const s = spinner()
 
