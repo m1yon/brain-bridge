@@ -1,6 +1,8 @@
 import { SetService } from '@/services'
 import Set from './Set'
-import SetCreationDialog from './SetCreationDialog'
+import { Button } from './primitives/Button'
+import { PlusIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 const SetListing = async () => {
 	const sets = await SetService.cache.getAllSets()
@@ -10,7 +12,11 @@ const SetListing = async () => {
 			{sets.map((props) => (
 				<Set key={props.id} {...props} />
 			))}
-			<SetCreationDialog />
+			<Button variant="secondary" className="h-full w-full" asChild>
+				<Link href="set/create">
+					<PlusIcon className="h-5 w-5" />
+				</Link>
+			</Button>
 		</div>
 	)
 }
