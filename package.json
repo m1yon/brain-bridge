@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@clack/prompts": "^0.7.0",
+		"@radix-ui/react-dialog": "^1.0.5",
 		"@total-typescript/ts-reset": "^0.5.1",
 		"@types/node": "^20.9.0",
 		"@types/react": "^18.2.37",
@@ -49,6 +50,7 @@
 		"postgres": "^3.4.3",
 		"prettier": "^3.0.3",
 		"tailwindcss": "^3.3.5",
+		"tailwindcss-animate": "^1.0.7",
 		"tsx": "^4.1.1",
 		"typescript": "^5.2.2"
 	},
