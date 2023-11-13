@@ -6,9 +6,6 @@ export default {
 	out: './drizzle/migrations',
 	driver: 'pg',
 	dbCredentials: {
-		host: serverEnvVariables.POSTGRES_HOST,
-		user: serverEnvVariables.POSTGRES_USER,
-		password: serverEnvVariables.POSTGRES_PASSWORD,
-		database: serverEnvVariables.POSTGRES_DATABASE,
+		connectionString: serverEnvVariables.DATABASE_URL,
 	},
 } satisfies Config
