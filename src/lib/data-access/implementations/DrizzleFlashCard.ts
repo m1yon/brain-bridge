@@ -26,3 +26,11 @@ export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
 
 	revalidateTag('get-all-flash-cards')
 }
+
+export const updateFlashCard: FlashCardOperations['updateFlashCard'] = async (
+	args,
+) => {
+	await db.update(flashCards).set(args).where(eq(flashCards.id, args.id))
+
+	revalidateTag('get-all-flash-cards')
+}
