@@ -22,3 +22,9 @@ export const getSet: SetOperations['getSet'] = async (setId) => {
 		with: { flashCards: true },
 	})
 }
+
+export const deleteSet: SetOperations['deleteSet'] = async (setId) => {
+	await db.delete(sets).where(eq(sets.id, setId))
+
+	revalidateTag('get-all-sets')
+}

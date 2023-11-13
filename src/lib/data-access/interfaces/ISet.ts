@@ -11,4 +11,5 @@ export interface SetOperations {
 	getSet(id: string): Promise<Set | undefined>
 	getAllSets(): Promise<Omit<Set, 'flashCards'>[]>
 	createSet(args: Pick<Set, 'name' | 'description'>): Promise<void>
+	deleteSet(id: string): Promise<void>
 }
