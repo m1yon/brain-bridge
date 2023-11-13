@@ -56,8 +56,8 @@ const FlashCardUpdateForm = ({
 
 					if (valid) {
 						await flashCardService.updateFlashCard(form.getValues())
-						form.reset()
 						onComplete()
+						form.reset()
 					}
 				}}
 			>
