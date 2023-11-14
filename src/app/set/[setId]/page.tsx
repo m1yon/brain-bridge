@@ -1,6 +1,4 @@
 import DeleteSetDialog from '@/components/sets/DeleteSetDialog'
-import FlashCardCreationForm from '@/components/flash-cards/FlashCardCreationForm'
-import FlashCardGrid from '@/components/flash-cards/FlashCardGrid'
 import { SetService } from '@/services'
 import { Metadata } from 'next'
 import { Badge } from '@/components/primitives/Badge'
@@ -43,8 +41,7 @@ export default async function SetPage({
 					<DeleteSetDialog name={set?.name || 'N/A'} />
 				</div>
 			</div>
-			<FlashCardGrid flashCards={set?.flashCards ?? []} />
-			<FlashCardCreationForm />
+			<Button>Learn</Button>
 		</main>
 	)
 }
