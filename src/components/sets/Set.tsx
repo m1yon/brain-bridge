@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Card, CardHeader, CardTitle } from './primitives/Card'
+import { Card, CardHeader, CardTitle } from '../primitives/Card'
 
 import { Set } from '@/lib/data-access/interfaces/ISet'
 

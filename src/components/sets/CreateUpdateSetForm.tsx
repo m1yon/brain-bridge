@@ -8,8 +8,8 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from './primitives/Form'
-import { Input } from './primitives/Input'
+} from '../primitives/Form'
+import { Input } from '../primitives/Input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SetService } from '@/services'

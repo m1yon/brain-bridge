@@ -1,6 +1,6 @@
-import DeleteSetDialog from '@/components/DeleteSetDialog'
-import FlashCardCreationForm from '@/components/FlashCardCreationForm'
-import FlashCardListing from '@/components/FlashCardListing'
+import DeleteSetDialog from '@/components/sets/DeleteSetDialog'
+import FlashCardCreationForm from '@/components/flash-cards/FlashCardCreationForm'
+import FlashCardGrid from '@/components/flash-cards/FlashCardGrid'
 import { SetService } from '@/services'
 
 export default async function SetPage({
@@ -20,7 +20,7 @@ export default async function SetPage({
 
 				<DeleteSetDialog name={set?.name || 'N/A'} />
 			</div>
-			<FlashCardListing flashCards={set?.flashCards ?? []} />
+			<FlashCardGrid flashCards={set?.flashCards ?? []} />
 			<FlashCardCreationForm />
 		</main>
 	)

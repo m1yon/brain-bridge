@@ -1,10 +1,10 @@
 import { SetService } from '@/services'
 import Set from './Set'
-import { Button } from './primitives/Button'
+import { Button } from '../primitives/Button'
 import { PlusIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
-const SetListing = async () => {
+const SetGrid = async () => {
 	const sets = await SetService.cache.getAllSets()
 
 	return (
@@ -21,4 +21,4 @@ const SetListing = async () => {
 	)
 }
 
-export default SetListing
+export default SetGrid

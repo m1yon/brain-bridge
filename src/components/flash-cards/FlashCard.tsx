@@ -8,8 +8,8 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from './primitives/Card'
-import { Button } from './primitives/Button'
+} from '../primitives/Card'
+import { Button } from '../primitives/Button'
 import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import FlashCardUpdateForm from './FlashCardUpdateForm'

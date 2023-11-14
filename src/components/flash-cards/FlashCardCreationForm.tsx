@@ -9,14 +9,14 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from './primitives/Form'
-import { Input } from './primitives/Input'
+} from '../primitives/Form'
+import { Input } from '../primitives/Input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from './primitives/Button'
+import { Button } from '../primitives/Button'
 import { FlashCardService } from '@/services'
 import { useState } from 'react'
-import { Card, CardContent, CardFooter, CardHeader } from './primitives/Card'
+import { Card, CardContent, CardFooter, CardHeader } from '../primitives/Card'
 import { PlusIcon } from '@radix-ui/react-icons'
 import { useParams } from 'next/navigation'
 

@@ -1,11 +1,11 @@
 import { FlashCard as FlashCardType } from '@/lib/data-access/interfaces/IFlashCard'
 import FlashCard from './FlashCard'
 
-type FlashCardListingProps = {
+type FlashCardGridProps = {
 	flashCards: FlashCardType[]
 }
 
-const FlashCardListing = ({ flashCards }: FlashCardListingProps) => {
+const FlashCardGrid = ({ flashCards }: FlashCardGridProps) => {
 	return (
 		<div className="mb-4 flex flex-col gap-4">
 			{flashCards.map((props) => (
@@ -15,4 +15,4 @@ const FlashCardListing = ({ flashCards }: FlashCardListingProps) => {
 	)
 }
 
-export default FlashCardListing
+export default FlashCardGrid

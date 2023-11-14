@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from './primitives/Button'
+import { Button } from '../primitives/Button'
 import { SetService } from '@/services'
 import { TrashIcon } from '@radix-ui/react-icons'
 import {
@@ -11,7 +11,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from './primitives/Dialog'
+} from '../primitives/Dialog'
 import { useParams, useRouter } from 'next/navigation'
 import DeleteSetDialogActions from './DeleteSetDialogActions'
 import { useToast } from '@/hooks/useToast'

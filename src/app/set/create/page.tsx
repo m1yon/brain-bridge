@@ -1,4 +1,4 @@
-import CreateUpdateSetForm from '@/components/CreateUpdateSetForm'
+import CreateUpdateSetForm from '@/components/sets/CreateUpdateSetForm'
 
 export default function CreateSet() {
 	return (
