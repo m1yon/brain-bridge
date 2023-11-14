@@ -34,7 +34,7 @@ export default async function SetPage({
 
 				<div className="space-x-2">
 					<Link href={`/set/${params.setId}/update`}>
-						<Button variant="outline" size="icon">
+						<Button variant="ghost" size="icon">
 							<Pencil1Icon className="h-4 w-4" />
 						</Button>
 					</Link>
