@@ -60,7 +60,7 @@ const CreateUpdateSetForm = () => {
 							description: form.getValues().description || null,
 						})
 
-						router.push(setId)
+						router.replace(setId)
 
 						toast({
 							description: `New set "${
