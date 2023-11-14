@@ -20,6 +20,7 @@ import { Textarea } from '../primitives/Textarea'
 import { Card, CardContent, CardHeader } from '../primitives/Card'
 import { Button } from '../primitives/Button'
 import { PlusIcon, TrashIcon } from '@radix-ui/react-icons'
+import { Set } from '@/lib/data-access/interfaces/ISet'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
@@ -32,12 +33,19 @@ const formSchema = z.object({
 	),
 })
 
-const CreateUpdateSetForm = () => {
+type CreateUpdateSetFormProps = {
+	setToUpdate?: Set
+}
+
+const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 	const { toast } = useToast()
 	const router = useRouter()
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
+			...setToUpdate,
+			description: setToUpdate?.description ?? undefined,
+		} ?? {
 			name: '',
 		},
 		mode: 'onSubmit',
@@ -55,6 +63,16 @@ const CreateUpdateSetForm = () => {
 					const valid = await form.trigger()
 
 					if (valid) {
+						if (setToUpdate) {
+							// TODO: add call to update set
+							router.replace(`/set/${setToUpdate.id}`)
+
+							toast({
+								description: `Set "${form.getValues().name}" has been updated.`,
+							})
+							return
+						}
+
 						const setId = await SetService.createSet({
 							...form.getValues(),
 							description: form.getValues().description || null,
@@ -165,7 +183,7 @@ const CreateUpdateSetForm = () => {
 					</Button>
 				</div>
 
-				<CreateUpdateSetFormActions />
+				<CreateUpdateSetFormActions isUpdate={Boolean(setToUpdate)} />
 			</form>
 		</Form>
 	)

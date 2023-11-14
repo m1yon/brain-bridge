@@ -4,6 +4,9 @@ import FlashCardGrid from '@/components/flash-cards/FlashCardGrid'
 import { SetService } from '@/services'
 import { Metadata } from 'next'
 import { Badge } from '@/components/primitives/Badge'
+import { Button } from '@/components/primitives/Button'
+import { Pencil1Icon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 export default async function SetPage({
 	params,
@@ -23,7 +26,14 @@ export default async function SetPage({
 					</Badge>
 				</div>
 
-				<DeleteSetDialog name={set?.name || 'N/A'} />
+				<div className="space-x-2">
+					<Link href={`/set/${params.setId}/update`}>
+						<Button variant="outline" size="icon">
+							<Pencil1Icon className="h-4 w-4" />
+						</Button>
+					</Link>
+					<DeleteSetDialog name={set?.name || 'N/A'} />
+				</div>
 			</div>
 			<FlashCardGrid flashCards={set?.flashCards ?? []} />
 			<FlashCardCreationForm />
