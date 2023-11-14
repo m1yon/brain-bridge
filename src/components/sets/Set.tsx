@@ -17,7 +17,7 @@ const Set = ({ id, name, description, flashCardCount }: SetProps) => {
 			>
 				<CardHeader>
 					<CardTitle>{name}</CardTitle>
-					<p className="opacity-60">{description}</p>
+					<p className="opacity-60">{description || '-'}</p>
 				</CardHeader>
 				<CardContent>
 					<Badge>

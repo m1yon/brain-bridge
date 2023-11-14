@@ -25,7 +25,10 @@ const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
 	description: z.string().optional(),
 	flashCards: z.array(
-		z.object({ term: z.string().min(1), definition: z.string().min(1) }),
+		z.object({
+			term: z.string().min(1, 'Term is required'),
+			definition: z.string().min(1, 'Definition is required'),
+		}),
 	),
 })
 
@@ -110,21 +113,23 @@ const CreateUpdateSetForm = () => {
 										render={({ field }) => (
 											<FormItem className="grow">
 												<FormLabel>Term</FormLabel>
-												<FormControl>
-													<Input placeholder="TypeScript" {...field} />
-												</FormControl>
+												<div className="flex gap-4">
+													<FormControl>
+														<Input placeholder="TypeScript" {...field} />
+													</FormControl>
+													<Button
+														variant="outline"
+														size="default"
+														onClick={() => remove(index)}
+													>
+														<TrashIcon className="h-4 w-4" />
+													</Button>
+												</div>
 
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
-									<Button
-										variant="outline"
-										size="default"
-										onClick={() => remove(index)}
-									>
-										<TrashIcon className="h-4 w-4" />
-									</Button>
 								</CardHeader>
 								<CardContent className="space-y-6">
 									<FormField
@@ -150,7 +155,7 @@ const CreateUpdateSetForm = () => {
 
 					<Button
 						variant="secondary"
-						className="mt-4 w-full"
+						className="w-full"
 						onClick={() => append({ definition: '', term: '' })}
 						type="button"
 					>
