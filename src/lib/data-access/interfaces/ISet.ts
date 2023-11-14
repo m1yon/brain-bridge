@@ -5,6 +5,7 @@ export interface Set {
 	name: string
 	description: string | null
 	flashCards: FlashCard[]
+	flashCardCount: number
 }
 
 export interface SetOperations {

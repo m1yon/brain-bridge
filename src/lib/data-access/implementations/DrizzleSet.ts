@@ -7,7 +7,11 @@ import { revalidateTag } from 'next/cache'
 import { eq } from 'drizzle-orm'
 
 export const getAllSets: SetOperations['getAllSets'] = async () => {
-	return db.query.sets.findMany()
+	const result = await db.query.sets.findMany({ with: { flashCards: true } })
+
+	return result.map((set) => {
+		return { ...set, flashCardCount: set.flashCards.length }
+	})
 }
 
 export const createSet: SetOperations['createSet'] = async (args) => {
@@ -17,10 +21,14 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 }
 
 export const getSet: SetOperations['getSet'] = async (setId) => {
-	return db.query.sets.findFirst({
+	const result = await db.query.sets.findFirst({
 		where: eq(sets.id, setId),
 		with: { flashCards: true },
 	})
+
+	if (!result) return
+
+	return { ...result, flashCardCount: result.flashCards.length }
 }
 
 export const deleteSet: SetOperations['deleteSet'] = async (setId) => {

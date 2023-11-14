@@ -12,6 +12,7 @@ export const createFlashCard: FlashCardOperations['createFlashCard'] = async (
 	await db.insert(flashCards).values(args)
 
 	revalidateTag('get-all-flash-cards')
+	revalidateTag('get-all-sets')
 }
 
 export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
@@ -20,6 +21,7 @@ export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
 	await db.delete(flashCards).where(eq(flashCards.id, args.id))
 
 	revalidateTag('get-all-flash-cards')
+	revalidateTag('get-all-sets')
 }
 
 export const updateFlashCard: FlashCardOperations['updateFlashCard'] = async (

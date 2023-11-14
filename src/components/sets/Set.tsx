@@ -1,13 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { Card, CardHeader, CardTitle } from '../primitives/Card'
+import { Card, CardContent, CardHeader, CardTitle } from '../primitives/Card'
 
 import { Set } from '@/lib/data-access/interfaces/ISet'
+import { Badge } from '../primitives/Badge'
 
 type SetProps = Omit<Set, 'flashCards'>
 
-const Set = ({ id, name, description }: SetProps) => {
+const Set = ({ id, name, description, flashCardCount }: SetProps) => {
 	return (
 		<Link href={`set/${id}`}>
 			<Card
@@ -18,6 +19,11 @@ const Set = ({ id, name, description }: SetProps) => {
 					<CardTitle>{name}</CardTitle>
 					<p className="opacity-60">{description}</p>
 				</CardHeader>
+				<CardContent>
+					<Badge>
+						{flashCardCount} {flashCardCount === 1 ? 'term' : 'terms'}
+					</Badge>
+				</CardContent>
 			</Card>
 		</Link>
 	)
