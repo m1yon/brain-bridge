@@ -57,3 +57,23 @@ export const deleteSet: SetOperations['deleteSet'] = async (setId) => {
 
 	revalidateTag('get-all-sets')
 }
+
+export const updateSet: SetOperations['updateSet'] = async (args) => {
+	await db.transaction(async (tx) => {
+		await tx
+			.update(sets)
+			.set({ name: args.name, description: args.description })
+			.where(eq(sets.id, args.id))
+
+		for (const flashCard of args.flashCards) {
+			await tx
+				.update(flashCards)
+				.set(flashCard)
+				.where(eq(flashCards.id, flashCard.id))
+		}
+	})
+
+	revalidateTag(`get-set-${args.id}`)
+
+	return
+}

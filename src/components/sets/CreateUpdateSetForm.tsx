@@ -27,6 +27,7 @@ const formSchema = z.object({
 	description: z.string().optional(),
 	flashCards: z.array(
 		z.object({
+			id: z.string(),
 			term: z.string().min(1, 'Term is required'),
 			definition: z.string().min(1, 'Definition is required'),
 		}),
@@ -64,7 +65,12 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 
 					if (valid) {
 						if (setToUpdate) {
-							// TODO: add call to update set
+							await SetService.updateSet({
+								id: setToUpdate.id,
+								...form.getValues(),
+								description: form.getValues().description || null,
+							})
+
 							router.replace(`/set/${setToUpdate.id}`)
 
 							toast({
@@ -176,7 +182,7 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 					<Button
 						variant="secondary"
 						className="w-full"
-						onClick={() => append({ definition: '', term: '' })}
+						onClick={() => append({ id: '', definition: '', term: '' })}
 						type="button"
 					>
 						<PlusIcon className="h-5 w-5" />
