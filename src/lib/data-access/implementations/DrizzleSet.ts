@@ -1,6 +1,6 @@
 'use server'
 
-import { sets } from '@/db/schema'
+import { flashCards, sets } from '@/db/schema'
 import { SetOperations } from '../interfaces/ISet'
 import { db } from '@/db'
 import { revalidateTag } from 'next/cache'
@@ -32,7 +32,10 @@ export const getSet: SetOperations['getSet'] = async (setId) => {
 }
 
 export const deleteSet: SetOperations['deleteSet'] = async (setId) => {
-	await db.delete(sets).where(eq(sets.id, setId))
+	await db.transaction(async (tx) => {
+		await tx.delete(flashCards).where(eq(flashCards.setId, setId))
+		await tx.delete(sets).where(eq(sets.id, setId))
+	})
 
 	revalidateTag('get-all-sets')
 }
