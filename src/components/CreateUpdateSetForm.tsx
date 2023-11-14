@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SetService } from '@/services'
 import CreateUpdateSetFormActions from './CreateUpdateSetFormActions'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/hooks/useToast'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
@@ -22,6 +23,7 @@ const formSchema = z.object({
 })
 
 const CreateUpdateSetForm = () => {
+	const { toast } = useToast()
 	const router = useRouter()
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -43,6 +45,11 @@ const CreateUpdateSetForm = () => {
 							description: form.getValues().description || null,
 						})
 						router.push('/')
+						toast({
+							description: `New set "${
+								form.getValues().name
+							}" has been created.`,
+						})
 					}
 				}}
 			>

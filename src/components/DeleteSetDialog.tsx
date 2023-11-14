@@ -14,8 +14,14 @@ import {
 } from './primitives/Dialog'
 import { useParams, useRouter } from 'next/navigation'
 import DeleteSetDialogActions from './DeleteSetDialogActions'
+import { useToast } from '@/hooks/useToast'
 
-const DeleteSetDialog = () => {
+type DeleteSetDialogProps = {
+	name: string
+}
+
+const DeleteSetDialog = ({ name }: DeleteSetDialogProps) => {
+	const { toast } = useToast()
 	const params = useParams()
 	const router = useRouter()
 
@@ -33,6 +39,7 @@ const DeleteSetDialog = () => {
 					action={async () => {
 						await SetService.deleteSet(String(params.setId))
 						router.push('/')
+						toast({ description: `"${name}" has been deleted.` })
 					}}
 				>
 					<DialogHeader>

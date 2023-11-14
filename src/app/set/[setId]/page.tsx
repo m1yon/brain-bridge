@@ -18,7 +18,7 @@ export default async function SetPage({
 					<p className="opacity-60">{set?.description}</p>
 				</div>
 
-				<DeleteSetDialog />
+				<DeleteSetDialog name={set?.name || 'N/A'} />
 			</div>
 			<FlashCardListing flashCards={set?.flashCards ?? []} />
 			<FlashCardCreationForm />
