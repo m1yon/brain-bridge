@@ -2,6 +2,7 @@ import DeleteSetDialog from '@/components/sets/DeleteSetDialog'
 import FlashCardCreationForm from '@/components/flash-cards/FlashCardCreationForm'
 import FlashCardGrid from '@/components/flash-cards/FlashCardGrid'
 import { SetService } from '@/services'
+import { Metadata } from 'next'
 
 export default async function SetPage({
 	params,
@@ -24,4 +25,18 @@ export default async function SetPage({
 			<FlashCardCreationForm />
 		</main>
 	)
+}
+
+export async function generateMetadata({
+	params,
+}: {
+	params: { setId: string }
+}): Promise<Metadata> {
+	const id = params.setId
+
+	const set = await SetService.getSet(id)
+
+	return {
+		title: `${set?.name} - Brain Bridge`,
+	}
 }

@@ -1,4 +1,10 @@
 import CreateUpdateSetForm from '@/components/sets/CreateUpdateSetForm'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Create New Set - Brain Bridge',
+	description: 'Create a new set.',
+}
 
 export default function CreateSet() {
 	return (
