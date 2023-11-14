@@ -16,7 +16,7 @@ export default async function SetPage({
 		<main className="mx-6 my-12">
 			<div className="mb-6 flex justify-between">
 				<div>
-					<h1 className="text-3xl font-bold">{set?.name}</h1>
+					<h1 className="text-4xl font-bold">{set?.name}</h1>
 					<p className="mb-2 opacity-60">{set?.description}</p>
 					<Badge>
 						{set?.flashCardCount} {set?.flashCardCount === 1 ? 'term' : 'terms'}
