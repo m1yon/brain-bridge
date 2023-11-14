@@ -15,6 +15,6 @@ export interface SetOperations {
 		args: Pick<Set, 'name' | 'description'> & {
 			flashCards: Array<Pick<FlashCard, 'term' | 'definition'>>
 		},
-	): Promise<void>
+	): Promise<string>
 	deleteSet(id: string): Promise<void>
 }

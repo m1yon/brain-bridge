@@ -55,11 +55,13 @@ const CreateUpdateSetForm = () => {
 					const valid = await form.trigger()
 
 					if (valid) {
-						await SetService.createSet({
+						const setId = await SetService.createSet({
 							...form.getValues(),
 							description: form.getValues().description || null,
 						})
-						router.push('/')
+
+						router.push(setId)
+
 						toast({
 							description: `New set "${
 								form.getValues().name
