@@ -3,6 +3,7 @@ import FlashCardCreationForm from '@/components/flash-cards/FlashCardCreationFor
 import FlashCardGrid from '@/components/flash-cards/FlashCardGrid'
 import { SetService } from '@/services'
 import { Metadata } from 'next'
+import { Badge } from '@/components/primitives/Badge'
 
 export default async function SetPage({
 	params,
@@ -16,7 +17,10 @@ export default async function SetPage({
 			<div className="mb-6 flex justify-between">
 				<div>
 					<h1 className="text-3xl font-bold">{set?.name}</h1>
-					<p className="opacity-60">{set?.description}</p>
+					<p className="mb-2 opacity-60">{set?.description}</p>
+					<Badge>
+						{set?.flashCardCount} {set?.flashCardCount === 1 ? 'term' : 'terms'}
+					</Badge>
 				</div>
 
 				<DeleteSetDialog name={set?.name || 'N/A'} />
