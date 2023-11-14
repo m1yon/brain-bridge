@@ -3,7 +3,7 @@ import { SetService } from '@/services'
 import { Metadata } from 'next'
 import { Badge } from '@/components/primitives/Badge'
 import { Button } from '@/components/primitives/Button'
-import { Pencil1Icon } from '@radix-ui/react-icons'
+import { Pencil1Icon, CardStackIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 
@@ -41,7 +41,22 @@ export default async function SetPage({
 					<DeleteSetDialog name={set?.name || 'N/A'} />
 				</div>
 			</div>
-			<Button>Learn</Button>
+			<div className="grid grid-cols-3">
+				<Link href={`/set/${params.setId}/review`}>
+					<Button
+						variant="outline"
+						className="flex w-full flex-row justify-start gap-6 px-8 py-12"
+					>
+						<CardStackIcon className="h-7 w-7" />
+						<div className="flex flex-col items-start">
+							<span className="text-xl">Review</span>{' '}
+							<span className="font-normal opacity-60">
+								Review terms in this set
+							</span>
+						</div>
+					</Button>
+				</Link>
+			</div>
 		</main>
 	)
 }
