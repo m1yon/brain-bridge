@@ -10,7 +10,7 @@ import {
 	FormMessage,
 } from '../primitives/Form'
 import { Input } from '../primitives/Input'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SetService } from '@/services'
 import CreateUpdateSetFormActions from './CreateUpdateSetFormActions'
@@ -19,12 +19,14 @@ import { useToast } from '@/hooks/useToast'
 import { Textarea } from '../primitives/Textarea'
 import { Card, CardContent, CardHeader } from '../primitives/Card'
 import { Button } from '../primitives/Button'
-import { TrashIcon } from '@radix-ui/react-icons'
+import { PlusIcon, TrashIcon } from '@radix-ui/react-icons'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
 	description: z.string().optional(),
-	flashCards: z.array(z.object({ term: z.string(), definition: z.string() })),
+	flashCards: z.array(
+		z.object({ term: z.string().min(1), definition: z.string().min(1) }),
+	),
 })
 
 const CreateUpdateSetForm = () => {
@@ -35,6 +37,11 @@ const CreateUpdateSetForm = () => {
 		defaultValues: {
 			name: '',
 		},
+		mode: 'onSubmit',
+	})
+	const { fields, append, remove } = useFieldArray({
+		control: form.control,
+		name: 'flashCards',
 	})
 
 	return (
@@ -93,45 +100,62 @@ const CreateUpdateSetForm = () => {
 
 					<h2 className="mb-4 text-2xl font-bold">Flash Cards</h2>
 
-					<Card>
-						<CardHeader className="flex-row items-end gap-4">
-							<FormField
-								control={form.control}
-								name={`flashCards.${0}.term`}
-								render={({ field }) => (
-									<FormItem className="grow">
-										<FormLabel>Term</FormLabel>
-										<FormControl>
-											<Input placeholder="TypeScript" {...field} />
-										</FormControl>
+					{fields.map((field, index) => {
+						return (
+							<Card key={field.id} className="mb-4">
+								<CardHeader className="flex-row items-end gap-4">
+									<FormField
+										control={form.control}
+										name={`flashCards.${index}.term`}
+										render={({ field }) => (
+											<FormItem className="grow">
+												<FormLabel>Term</FormLabel>
+												<FormControl>
+													<Input placeholder="TypeScript" {...field} />
+												</FormControl>
 
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<Button variant="outline" size="default">
-								<TrashIcon className="h-4 w-4" />
-							</Button>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<FormField
-								control={form.control}
-								name={`flashCards.${0}.definition`}
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Definition</FormLabel>
-										<FormControl>
-											<Textarea
-												placeholder="a strongly typed programming language that builds on JavaScript"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</CardContent>
-					</Card>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<Button
+										variant="outline"
+										size="default"
+										onClick={() => remove(index)}
+									>
+										<TrashIcon className="h-4 w-4" />
+									</Button>
+								</CardHeader>
+								<CardContent className="space-y-6">
+									<FormField
+										control={form.control}
+										name={`flashCards.${index}.definition`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Definition</FormLabel>
+												<FormControl>
+													<Textarea
+														placeholder="a strongly typed programming language that builds on JavaScript"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</CardContent>
+							</Card>
+						)
+					})}
+
+					<Button
+						variant="secondary"
+						className="mt-4 w-full"
+						onClick={() => append({ definition: '', term: '' })}
+						type="button"
+					>
+						<PlusIcon className="h-5 w-5" />
+					</Button>
 				</div>
 
 				<CreateUpdateSetFormActions />
