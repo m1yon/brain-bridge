@@ -16,10 +16,15 @@ import { SetService } from '@/services'
 import CreateUpdateSetFormActions from './CreateUpdateSetFormActions'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/hooks/useToast'
+import { Textarea } from '../primitives/Textarea'
+import { Card, CardContent, CardHeader } from '../primitives/Card'
+import { Button } from '../primitives/Button'
+import { TrashIcon } from '@radix-ui/react-icons'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
 	description: z.string().optional(),
+	flashCards: z.array(z.object({ term: z.string(), definition: z.string() })),
 })
 
 const CreateUpdateSetForm = () => {
@@ -53,12 +58,12 @@ const CreateUpdateSetForm = () => {
 					}
 				}}
 			>
-				<div className="space-y-4 pb-8">
+				<div className="pb-8">
 					<FormField
 						control={form.control}
 						name="name"
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className="mb-4">
 								<FormLabel>Name</FormLabel>
 								<FormControl>
 									<Input placeholder="Web Development" {...field} />
@@ -72,10 +77,10 @@ const CreateUpdateSetForm = () => {
 						control={form.control}
 						name="description"
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className="mb-8">
 								<FormLabel>Description</FormLabel>
 								<FormControl>
-									<Input
+									<Textarea
 										placeholder="Study material for my web development interviews"
 										{...field}
 									/>
@@ -85,7 +90,50 @@ const CreateUpdateSetForm = () => {
 							</FormItem>
 						)}
 					/>
+
+					<h2 className="mb-4 text-2xl font-bold">Flash Cards</h2>
+
+					<Card>
+						<CardHeader className="flex-row items-end gap-4">
+							<FormField
+								control={form.control}
+								name={`flashCards.${0}.term`}
+								render={({ field }) => (
+									<FormItem className="grow">
+										<FormLabel>Term</FormLabel>
+										<FormControl>
+											<Input placeholder="TypeScript" {...field} />
+										</FormControl>
+
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button variant="outline" size="default">
+								<TrashIcon className="h-4 w-4" />
+							</Button>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							<FormField
+								control={form.control}
+								name={`flashCards.${0}.definition`}
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Definition</FormLabel>
+										<FormControl>
+											<Textarea
+												placeholder="a strongly typed programming language that builds on JavaScript"
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</CardContent>
+					</Card>
 				</div>
+
 				<CreateUpdateSetFormActions />
 			</form>
 		</Form>

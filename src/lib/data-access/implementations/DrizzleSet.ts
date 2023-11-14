@@ -15,7 +15,14 @@ export const getAllSets: SetOperations['getAllSets'] = async () => {
 }
 
 export const createSet: SetOperations['createSet'] = async (args) => {
-	await db.insert(sets).values(args)
+	await db.transaction(async (tx) => {
+		const [item] = await tx.insert(sets).values(args).returning()
+		await tx
+			.insert(flashCards)
+			.values(
+				args.flashCards.map((flashCard) => ({ ...flashCard, setId: item?.id })),
+			)
+	})
 
 	revalidateTag('get-all-sets')
 }

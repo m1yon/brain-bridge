@@ -11,6 +11,10 @@ export interface Set {
 export interface SetOperations {
 	getSet(id: string): Promise<Set | undefined>
 	getAllSets(): Promise<Omit<Set, 'flashCards'>[]>
-	createSet(args: Pick<Set, 'name' | 'description'>): Promise<void>
+	createSet(
+		args: Pick<Set, 'name' | 'description'> & {
+			flashCards: Array<Pick<FlashCard, 'term' | 'definition'>>
+		},
+	): Promise<void>
 	deleteSet(id: string): Promise<void>
 }
