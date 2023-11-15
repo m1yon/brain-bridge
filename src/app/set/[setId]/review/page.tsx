@@ -1,3 +1,4 @@
+import Flashcard from '@/components/flashcards/Flashcard'
 import { SetService } from '@/services'
 import { unstable_cache } from 'next/cache'
 
@@ -15,5 +16,9 @@ export default async function ReviewSetPage({
 	)
 	const set = await getSetCached()
 
-	return <main className="mx-6 my-12">{set?.name}</main>
+	return (
+		<main className="mx-6 my-12">
+			<Flashcard flashcards={set?.flashCards || []} />
+		</main>
+	)
 }
