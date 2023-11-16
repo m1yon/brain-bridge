@@ -1,4 +1,4 @@
-import Flashcard from '@/components/flashcards/Flashcard'
+import FlashcardReviewer from '@/components/flashcards/Flashcard'
 import { SetService } from '@/services'
 import { unstable_cache } from 'next/cache'
 
@@ -18,7 +18,7 @@ export default async function ReviewSetPage({
 
 	return (
 		<main className="mx-6 my-12">
-			<Flashcard flashcards={set?.flashcards || []} />
+			<FlashcardReviewer flashcards={set?.flashcards || []} />
 		</main>
 	)
 }

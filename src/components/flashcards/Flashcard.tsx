@@ -1,29 +1,34 @@
 'use client'
 
 import { cn } from '@/utils/cn'
-import { useState } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
 import { Button } from '../primitives/Button'
-import { Flashcard } from '@/lib/data-access/interfaces/IFlashCard'
+import { Flashcard as FlashcardReviewer } from '@/lib/data-access/interfaces/IFlashCard'
+import { useKey } from 'react-use'
+import useFlashcardReviewerState from './hooks/useFlashcardReviewerState'
 
-type FlashcardProps = { flashcards: Flashcard[] }
+type FlashcardReviewerProps = { flashcards: FlashcardReviewer[] }
 
-const Flashcard = ({ flashcards }: FlashcardProps) => {
-	const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
-	const [isDefinitionShown, setIsDefinitionShown] = useState(false)
+const FlashcardReviewer = ({ flashcards }: FlashcardReviewerProps) => {
+	const [state, dispatch] = useFlashcardReviewerState({
+		numberOfFlashcards: flashcards.length,
+	})
 
-	const currentFlashcard = flashcards[currentFlashcardIndex]
+	useKey('ArrowLeft', () => dispatch({ type: 'PREVIOUS_FLASHCARD' }))
+	useKey('ArrowRight', () => dispatch({ type: 'NEXT_FLASHCARD' }))
+
+	const currentFlashcard = flashcards[state.currentFlashcardIndex]
 
 	return (
 		<div>
 			<div
 				className="group h-96 cursor-pointer select-none perspective-1000"
-				onClick={() => setIsDefinitionShown(!isDefinitionShown)}
+				onClick={() => dispatch({ type: 'FLIP_FLASHCARD' })}
 			>
 				<div
 					className={cn(
 						'relative h-full w-full duration-200 transform-style-3d',
-						isDefinitionShown && 'rotate-x-180',
+						state.isDefinitionShown && 'rotate-x-180',
 					)}
 				>
 					<div className="absolute flex h-full w-full items-center justify-center bg-secondary text-2xl text-secondary-foreground backface-hidden">
@@ -36,13 +41,12 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
 			</div>
 
 			<div className="mt-4 flex justify-between">
-				{currentFlashcardIndex !== 0 ? (
+				{state.currentFlashcardIndex !== 0 ? (
 					<Button
 						size="lg"
 						variant="outline"
 						onClick={() => {
-							setCurrentFlashcardIndex(currentFlashcardIndex - 1)
-							setIsDefinitionShown(false)
+							dispatch({ type: 'PREVIOUS_FLASHCARD' })
 						}}
 					>
 						<ArrowLeftIcon className="h-7 w-7" />
@@ -51,13 +55,12 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
 					<div />
 				)}
 
-				{currentFlashcardIndex !== flashcards.length - 1 ? (
+				{state.currentFlashcardIndex !== flashcards.length - 1 ? (
 					<Button
 						size="lg"
 						variant="outline"
 						onClick={() => {
-							setCurrentFlashcardIndex(currentFlashcardIndex + 1)
-							setIsDefinitionShown(false)
+							dispatch({ type: 'NEXT_FLASHCARD' })
 						}}
 					>
 						<ArrowRightIcon className="h-7 w-7" />
@@ -68,4 +71,4 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
 	)
 }
 
-export default Flashcard
+export default FlashcardReviewer
