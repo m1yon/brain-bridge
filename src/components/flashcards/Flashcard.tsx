@@ -16,6 +16,7 @@ const FlashcardReviewer = ({ flashcards }: FlashcardReviewerProps) => {
 
 	useKey('ArrowLeft', () => dispatch({ type: 'PREVIOUS_FLASHCARD' }))
 	useKey('ArrowRight', () => dispatch({ type: 'NEXT_FLASHCARD' }))
+	useKey(' ', () => dispatch({ type: 'FLIP_FLASHCARD' }))
 
 	const currentFlashcard = flashcards[state.currentFlashcardIndex]
 
