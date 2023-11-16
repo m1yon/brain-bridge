@@ -1,4 +1,4 @@
-import FlashcardReviewer from '@/components/flashcards/Flashcard'
+import FlashcardReviewer from '@/components/flashcards/FlashcardReviewer'
 import { SetService } from '@/services'
 import { unstable_cache } from 'next/cache'
 
