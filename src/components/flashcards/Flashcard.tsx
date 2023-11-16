@@ -14,9 +14,21 @@ const FlashcardReviewer = ({ flashcards }: FlashcardReviewerProps) => {
 		numberOfFlashcards: flashcards.length,
 	})
 
-	useKey('ArrowLeft', () => dispatch({ type: 'PREVIOUS_FLASHCARD' }))
-	useKey('ArrowRight', () => dispatch({ type: 'NEXT_FLASHCARD' }))
-	useKey(' ', () => dispatch({ type: 'FLIP_FLASHCARD' }))
+	useKey('ArrowLeft', () => {
+		if (document.activeElement?.tagName === 'BODY') {
+			dispatch({ type: 'PREVIOUS_FLASHCARD' })
+		}
+	})
+	useKey('ArrowRight', () => {
+		if (document.activeElement?.tagName === 'BODY') {
+			dispatch({ type: 'NEXT_FLASHCARD' })
+		}
+	})
+	useKey(' ', () => {
+		if (document.activeElement?.tagName === 'BODY') {
+			dispatch({ type: 'FLIP_FLASHCARD' })
+		}
+	})
 
 	const currentFlashcard = flashcards[state.currentFlashcardIndex]
 
