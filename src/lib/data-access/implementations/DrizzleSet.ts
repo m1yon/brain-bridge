@@ -1,6 +1,6 @@
 'use server'
 
-import { flashCards, sets } from '@/db/schema'
+import { flashcards, sets } from '@/db/schema'
 import { SetOperations } from '../interfaces/ISet'
 import { db } from '@/db'
 import { revalidateTag } from 'next/cache'
@@ -8,10 +8,10 @@ import { eq } from 'drizzle-orm'
 import invariant from '@/utils/invariant'
 
 export const getAllSets: SetOperations['getAllSets'] = async () => {
-	const result = await db.query.sets.findMany({ with: { flashCards: true } })
+	const result = await db.query.sets.findMany({ with: { flashcards: true } })
 
 	return result.map((set) => {
-		return { ...set, flashCardCount: set.flashCards.length }
+		return { ...set, flashcardCount: set.flashcards.length }
 	})
 }
 
@@ -21,10 +21,10 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 
 		invariant(item, `Set insert returned ${String(item)}`)
 
-		if (args.flashCards.length) {
-			await tx.insert(flashCards).values(
-				args.flashCards.map((flashCard) => ({
-					...flashCard,
+		if (args.flashcards.length) {
+			await tx.insert(flashcards).values(
+				args.flashcards.map((flashcard) => ({
+					...flashcard,
 					setId: item?.id,
 				})),
 			)
@@ -41,17 +41,17 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 export const getSet: SetOperations['getSet'] = async (setId) => {
 	const result = await db.query.sets.findFirst({
 		where: eq(sets.id, setId),
-		with: { flashCards: true },
+		with: { flashcards: true },
 	})
 
 	if (!result) return
 
-	return { ...result, flashCardCount: result.flashCards.length }
+	return { ...result, flashcardCount: result.flashcards.length }
 }
 
 export const deleteSet: SetOperations['deleteSet'] = async (setId) => {
 	await db.transaction(async (tx) => {
-		await tx.delete(flashCards).where(eq(flashCards.setId, setId))
+		await tx.delete(flashcards).where(eq(flashcards.setId, setId))
 		await tx.delete(sets).where(eq(sets.id, setId))
 	})
 
@@ -65,11 +65,11 @@ export const updateSet: SetOperations['updateSet'] = async (args) => {
 			.set({ name: args.name, description: args.description })
 			.where(eq(sets.id, args.id))
 
-		for (const flashCard of args.flashCards) {
+		for (const flashcard of args.flashcards) {
 			await tx
-				.update(flashCards)
-				.set(flashCard)
-				.where(eq(flashCards.id, flashCard.id))
+				.update(flashcards)
+				.set(flashcard)
+				.where(eq(flashcards.id, flashcard.id))
 		}
 	})
 

@@ -4,9 +4,9 @@ import { cn } from '@/utils/cn'
 import { useState } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
 import { Button } from '../primitives/Button'
-import { FlashCard } from '@/lib/data-access/interfaces/IFlashCard'
+import { Flashcard } from '@/lib/data-access/interfaces/IFlashCard'
 
-type FlashcardProps = { flashcards: FlashCard[] }
+type FlashcardProps = { flashcards: Flashcard[] }
 
 const Flashcard = ({ flashcards }: FlashcardProps) => {
 	const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)

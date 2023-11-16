@@ -1,27 +1,27 @@
 'use server'
 
 import { db } from '@/db'
-import { FlashCardOperations } from '../interfaces/IFlashCard'
-import { flashCards } from '@/db/schema'
+import { FlashcardOperations } from '../interfaces/IFlashCard'
+import { flashcards } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { revalidateTag } from 'next/cache'
 import invariant from '@/utils/invariant'
 
-export const createFlashCard: FlashCardOperations['createFlashCard'] = async (
+export const createFlashcard: FlashcardOperations['createFlashcard'] = async (
 	args,
 ) => {
-	await db.insert(flashCards).values(args)
+	await db.insert(flashcards).values(args)
 
 	revalidateTag(`get-set-${args.setId}`)
 	revalidateTag('get-all-sets')
 }
 
-export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
+export const deleteFlashcard: FlashcardOperations['deleteFlashcard'] = async (
 	args,
 ) => {
 	const [deletedFlashCard] = await db
-		.delete(flashCards)
-		.where(eq(flashCards.id, args.id))
+		.delete(flashcards)
+		.where(eq(flashcards.id, args.id))
 		.returning()
 
 	invariant(deletedFlashCard, 'No flash card returned from deletion')
@@ -30,13 +30,13 @@ export const deleteFlashCard: FlashCardOperations['deleteFlashCard'] = async (
 	revalidateTag('get-all-sets')
 }
 
-export const updateFlashCard: FlashCardOperations['updateFlashCard'] = async (
+export const updateFlashcard: FlashcardOperations['updateFlashcard'] = async (
 	args,
 ) => {
 	const [updatedFlashCard] = await db
-		.update(flashCards)
+		.update(flashcards)
 		.set(args)
-		.where(eq(flashCards.id, args.id))
+		.where(eq(flashcards.id, args.id))
 		.returning()
 
 	invariant(updatedFlashCard, 'No flash card returned from update')

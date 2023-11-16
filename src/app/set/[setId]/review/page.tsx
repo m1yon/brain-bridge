@@ -18,7 +18,7 @@ export default async function ReviewSetPage({
 
 	return (
 		<main className="mx-6 my-12">
-			<Flashcard flashcards={set?.flashCards || []} />
+			<Flashcard flashcards={set?.flashcards || []} />
 		</main>
 	)
 }

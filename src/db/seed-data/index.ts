@@ -2,7 +2,7 @@ export const seedData = [
 	{
 		name: 'HTML Fundamentals',
 		description: 'Core concepts and elements of HTML',
-		flashCards: [
+		flashcards: [
 			{
 				term: 'HTML',
 				definition:
@@ -58,7 +58,7 @@ export const seedData = [
 	{
 		name: 'CSS Essentials',
 		description: 'Fundamental concepts and properties of CSS',
-		flashCards: [
+		flashcards: [
 			{
 				term: 'CSS',
 				definition:
@@ -113,7 +113,7 @@ export const seedData = [
 	{
 		name: 'JavaScript Basics',
 		description: 'Key concepts and fundamentals of JavaScript',
-		flashCards: [
+		flashcards: [
 			{ term: 'Variable', definition: 'Containers for storing data values.' },
 			{
 				term: 'Function',

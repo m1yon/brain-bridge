@@ -28,7 +28,7 @@ export default async function SetPage({
 					<h1 className="text-4xl font-bold">{set?.name}</h1>
 					<p className="mb-2 opacity-60">{set?.description}</p>
 					<Badge>
-						{set?.flashCardCount} {set?.flashCardCount === 1 ? 'term' : 'terms'}
+						{set?.flashcardCount} {set?.flashcardCount === 1 ? 'term' : 'terms'}
 					</Badge>
 				</div>
 

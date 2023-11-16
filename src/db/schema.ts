@@ -7,7 +7,7 @@ export const sets = pgTable('sets', {
 	description: text('description'),
 })
 
-export const flashCards = pgTable('flash_cards', {
+export const flashcards = pgTable('flashcards', {
 	id: uuid('id').primaryKey().defaultRandom(),
 	term: text('term').notNull(),
 	definition: text('definition').notNull(),
@@ -15,12 +15,12 @@ export const flashCards = pgTable('flash_cards', {
 })
 
 export const setRelations = relations(sets, ({ many }) => ({
-	flashCards: many(flashCards),
+	flashcards: many(flashcards),
 }))
 
-export const flashCardsRelations = relations(flashCards, ({ one }) => ({
+export const flashcardsRelations = relations(flashcards, ({ one }) => ({
 	set: one(sets, {
-		fields: [flashCards.setId],
+		fields: [flashcards.setId],
 		references: [sets.id],
 	}),
 }))

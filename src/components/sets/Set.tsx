@@ -6,9 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '../primitives/Card'
 import { Set } from '@/lib/data-access/interfaces/ISet'
 import { Badge } from '../primitives/Badge'
 
-type SetProps = Omit<Set, 'flashCards'>
+type SetProps = Omit<Set, 'flashcards'>
 
-const Set = ({ id, name, description, flashCardCount }: SetProps) => {
+const Set = ({ id, name, description, flashcardCount }: SetProps) => {
 	return (
 		<Link href={`set/${id}`}>
 			<Card
@@ -21,7 +21,7 @@ const Set = ({ id, name, description, flashCardCount }: SetProps) => {
 				</CardHeader>
 				<CardContent>
 					<Badge>
-						{flashCardCount} {flashCardCount === 1 ? 'term' : 'terms'}
+						{flashcardCount} {flashcardCount === 1 ? 'term' : 'terms'}
 					</Badge>
 				</CardContent>
 			</Card>

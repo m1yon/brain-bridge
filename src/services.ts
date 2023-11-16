@@ -1,10 +1,10 @@
 import { unstable_cache } from 'next/cache'
 import * as drizzleFlashCardOperations from './lib/data-access/implementations/DrizzleFlashCard'
 import * as drizzleSetOperations from './lib/data-access/implementations/DrizzleSet'
-import { FlashCardOperations } from './lib/data-access/interfaces/IFlashCard'
+import { FlashcardOperations } from './lib/data-access/interfaces/IFlashCard'
 import { SetOperations } from './lib/data-access/interfaces/ISet'
 
-export const FlashCardService: FlashCardOperations = {
+export const FlashCardService: FlashcardOperations = {
 	...drizzleFlashCardOperations,
 }
 

@@ -1,11 +1,11 @@
 {
-  "id": "4caf90a4-1bbc-4bfe-af4e-dbf4c5718fb3",
+  "id": "b1ed9d40-dbcd-41dd-a280-d31bb7397697",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "flash_cards": {
-      "name": "flash_cards",
+    "flashcards": {
+      "name": "flashcards",
       "schema": "",
       "columns": {
         "id": {
@@ -36,9 +36,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "flash_cards_set_id_sets_id_fk": {
-          "name": "flash_cards_set_id_sets_id_fk",
-          "tableFrom": "flash_cards",
+        "flashcards_set_id_sets_id_fk": {
+          "name": "flashcards_set_id_sets_id_fk",
+          "tableFrom": "flashcards",
           "tableTo": "sets",
           "columnsFrom": [
             "set_id"

@@ -25,7 +25,7 @@ import { Set } from '@/lib/data-access/interfaces/ISet'
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
 	description: z.string().optional(),
-	flashCards: z.array(
+	flashcards: z.array(
 		z.object({
 			id: z.string(),
 			term: z.string().min(1, 'Term is required'),
@@ -53,7 +53,7 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 	})
 	const { fields, append, remove } = useFieldArray({
 		control: form.control,
-		name: 'flashCards',
+		name: 'flashcards',
 	})
 
 	return (
@@ -135,7 +135,7 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 								<CardHeader className="flex-row items-end gap-4">
 									<FormField
 										control={form.control}
-										name={`flashCards.${index}.term`}
+										name={`flashcards.${index}.term`}
 										render={({ field }) => (
 											<FormItem className="grow">
 												<FormLabel>Term</FormLabel>
@@ -160,7 +160,7 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 								<CardContent className="space-y-6">
 									<FormField
 										control={form.control}
-										name={`flashCards.${index}.definition`}
+										name={`flashcards.${index}.definition`}
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>Definition</FormLabel>

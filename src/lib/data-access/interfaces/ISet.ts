@@ -1,25 +1,25 @@
-import { FlashCard } from './IFlashCard'
+import { Flashcard } from './IFlashCard'
 
 export interface Set {
 	id: string
 	name: string
 	description: string | null
-	flashCards: FlashCard[]
-	flashCardCount: number
+	flashcards: Flashcard[]
+	flashcardCount: number
 }
 
 export interface SetOperations {
 	getSet(id: string): Promise<Set | undefined>
-	getAllSets(): Promise<Omit<Set, 'flashCards'>[]>
+	getAllSets(): Promise<Omit<Set, 'flashcards'>[]>
 	createSet(
 		args: Pick<Set, 'name' | 'description'> & {
-			flashCards: Array<Pick<FlashCard, 'term' | 'definition'>>
+			flashcards: Array<Pick<Flashcard, 'term' | 'definition'>>
 		},
 	): Promise<string>
 	deleteSet(id: string): Promise<void>
 	updateSet(
 		args: Pick<Set, 'id' | 'name' | 'description'> & {
-			flashCards: Array<Pick<FlashCard, 'id' | 'term' | 'definition'>>
+			flashcards: Array<Pick<Flashcard, 'id' | 'term' | 'definition'>>
 		},
 	): Promise<void>
 }

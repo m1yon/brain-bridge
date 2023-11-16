@@ -1,15 +1,15 @@
-export interface FlashCard {
+export interface Flashcard {
 	id: string
 	term: string
 	definition: string
 }
 
-export interface FlashCardOperations {
-	createFlashCard(
-		args: { setId: string } & Pick<FlashCard, 'term' | 'definition'>,
+export interface FlashcardOperations {
+	createFlashcard(
+		args: { setId: string } & Pick<Flashcard, 'term' | 'definition'>,
 	): Promise<void>
-	deleteFlashCard(args: Pick<FlashCard, 'id'>): Promise<void>
-	updateFlashCard(
-		args: Pick<FlashCard, 'id'> & Partial<FlashCard>,
+	deleteFlashcard(args: Pick<Flashcard, 'id'>): Promise<void>
+	updateFlashcard(
+		args: Pick<Flashcard, 'id'> & Partial<Flashcard>,
 	): Promise<void>
 }
