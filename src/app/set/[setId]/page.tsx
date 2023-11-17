@@ -32,7 +32,7 @@ export default async function SetPage({
 					</Badge>
 				</div>
 
-				<div className="space-x-2">
+				<div className="space-x-2 whitespace-nowrap">
 					<Link href={`/set/${params.setId}/update`}>
 						<Button variant="ghost" size="icon">
 							<Pencil1Icon className="h-4 w-4" />
@@ -41,7 +41,7 @@ export default async function SetPage({
 					<DeleteSetDialog name={set?.name || 'N/A'} />
 				</div>
 			</div>
-			<div className="grid grid-cols-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 				<Link href={`/set/${params.setId}/review`}>
 					<Button
 						variant="outline"
