@@ -3,7 +3,11 @@ import { SetService } from '@/services'
 import { Metadata } from 'next'
 import { Badge } from '@/components/primitives/Badge'
 import { Button } from '@/components/primitives/Button'
-import { Pencil1Icon, CardStackIcon } from '@radix-ui/react-icons'
+import {
+	Pencil1Icon,
+	CardStackIcon,
+	ArrowLeftIcon,
+} from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 
@@ -25,6 +29,12 @@ export default async function SetPage({
 		<main className="mx-6 my-12">
 			<div className="mb-6 flex justify-between">
 				<div>
+					<Link href="/">
+						<Button variant="link" className="pl-0">
+							<ArrowLeftIcon className="mr-1 inline" />
+							Back
+						</Button>
+					</Link>
 					<h1 className="text-4xl font-bold">{set?.name}</h1>
 					<p className="mb-2 opacity-60">{set?.description}</p>
 					<Badge>
