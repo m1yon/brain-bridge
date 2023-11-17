@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
+import { ArrowLeftIcon, Cross1Icon } from '@radix-ui/react-icons'
 import { Button } from '../primitives/Button'
 import { Flashcard as FlashcardReviewer } from '@/lib/data-access/interfaces/IFlashCard'
 import { useKey } from 'react-use'
@@ -72,9 +72,18 @@ const FlashcardReviewer = ({
 
 	return (
 		<div className="flex h-full flex-col">
-			<h1 className="p-8 text-center">{setName} Review</h1>
+			<div className="grid grid-cols-2 items-center p-8 md:grid-cols-3">
+				<h1 className="text-lg font-medium md:col-start-2 md:text-center">
+					{setName} Review
+				</h1>
+				<Link href={`/set/${setId}`} className="justify-self-end">
+					<Button size="sm" variant="ghost">
+						<Cross1Icon className="h-4 w-4" />
+					</Button>
+				</Link>
+			</div>
 
-			<div className="max-h-[800px] grow px-8 py-32 md:px-16 lg:px-32">
+			<div className="grow px-8 pb-24 md:max-h-[800px] md:px-16 md:py-32 lg:px-32">
 				{currentFlashcard ? (
 					<Flashcard
 						key={currentFlashcard.id}
