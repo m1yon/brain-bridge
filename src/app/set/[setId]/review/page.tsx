@@ -23,7 +23,11 @@ export default async function ReviewSetPage({
 
 	return (
 		<main className="h-screen">
-			<FlashcardReviewer setName={set.name} flashcards={set.flashcards || []} />
+			<FlashcardReviewer
+				setId={set.id}
+				setName={set.name}
+				flashcards={set.flashcards || []}
+			/>
 		</main>
 	)
 }

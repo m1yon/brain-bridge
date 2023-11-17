@@ -1,32 +1,46 @@
 'use client'
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
+import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { Button } from '../primitives/Button'
 import { Flashcard as FlashcardReviewer } from '@/lib/data-access/interfaces/IFlashCard'
 import { useKey } from 'react-use'
 import useFlashcardReviewerState from './hooks/useFlashcardReviewerState'
 import Flashcard from './Flashcard'
+import NextFlashcardButton from './NextFlashcardButton'
+import Link from 'next/link'
 
 type FlashcardReviewerProps = {
+	setId: string
 	setName: string
 	flashcards: FlashcardReviewer[]
 }
 
-const FlashcardReviewer = ({ setName, flashcards }: FlashcardReviewerProps) => {
+const FlashcardReviewer = ({
+	setId,
+	setName,
+	flashcards,
+}: FlashcardReviewerProps) => {
 	const [state, dispatch] = useFlashcardReviewerState({
 		numberOfFlashcards: flashcards.length,
 	})
+	const isLastCard =
+		state.currentFlashcardIndex + 1 === state.numberOfFlashcards
 
 	useKey('ArrowLeft', () => {
 		if (document.activeElement?.tagName === 'BODY') {
 			dispatch({ type: 'PREVIOUS_FLASHCARD' })
 		}
 	})
-	useKey('ArrowRight', () => {
-		if (document.activeElement?.tagName === 'BODY') {
-			dispatch({ type: 'NEXT_FLASHCARD' })
-		}
-	})
+	useKey(
+		'ArrowRight',
+		() => {
+			if (document.activeElement?.tagName === 'BODY') {
+				dispatch({ type: isLastCard ? 'COMPLETE' : 'NEXT_FLASHCARD' })
+			}
+		},
+		{},
+		[isLastCard],
+	)
 	useKey(' ', () => {
 		if (document.activeElement?.tagName === 'BODY') {
 			dispatch({ type: 'FLIP_FLASHCARD' })
@@ -34,6 +48,27 @@ const FlashcardReviewer = ({ setName, flashcards }: FlashcardReviewerProps) => {
 	})
 
 	const currentFlashcard = flashcards[state.currentFlashcardIndex]
+
+	if (state.isComplete) {
+		return (
+			<div className="flex h-full flex-col items-center justify-center gap-4">
+				<h1 className="text-4xl font-bold">
+					You&apos;ve reviewed all the flashcards!
+				</h1>
+				<div className="flex gap-2">
+					<Link href={`/set/${setId}`}>
+						<Button>Done</Button>
+					</Link>
+					<Button
+						variant="secondary"
+						onClick={() => dispatch({ type: 'RESET' })}
+					>
+						Let&apos;s go again
+					</Button>
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className="flex h-full flex-col">
@@ -64,17 +99,15 @@ const FlashcardReviewer = ({ setName, flashcards }: FlashcardReviewerProps) => {
 						<div />
 					)}
 
-					{state.currentFlashcardIndex !== flashcards.length - 1 ? (
-						<Button
-							size="lg"
-							variant="outline"
-							onClick={() => {
-								dispatch({ type: 'NEXT_FLASHCARD' })
-							}}
-						>
-							<ArrowRightIcon className="h-7 w-7" />
-						</Button>
-					) : null}
+					<NextFlashcardButton
+						key={currentFlashcard?.id}
+						isLastCard={isLastCard}
+						onClick={() => {
+							dispatch({
+								type: isLastCard ? 'COMPLETE' : 'NEXT_FLASHCARD',
+							})
+						}}
+					/>
 				</div>
 			</div>
 		</div>

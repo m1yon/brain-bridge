@@ -4,11 +4,24 @@ type FlashcardState = {
 	currentFlashcardIndex: number
 	isDefinitionShown: boolean
 	numberOfFlashcards: number
+	isComplete: boolean
 }
 
 type FlashcardStateAction = {
-	type: 'PREVIOUS_FLASHCARD' | 'NEXT_FLASHCARD' | 'FLIP_FLASHCARD'
+	type:
+		| 'PREVIOUS_FLASHCARD'
+		| 'NEXT_FLASHCARD'
+		| 'FLIP_FLASHCARD'
+		| 'COMPLETE'
+		| 'RESET'
 }
+
+const getInitialState = (numberOfFlashcards: number): FlashcardState => ({
+	numberOfFlashcards,
+	currentFlashcardIndex: 0,
+	isDefinitionShown: false,
+	isComplete: false,
+})
 
 const flashcardStateReducer = (
 	state: FlashcardState,
@@ -43,6 +56,15 @@ const flashcardStateReducer = (
 				isDefinitionShown: !state.isDefinitionShown,
 			}
 
+		case action.type === 'COMPLETE':
+			return {
+				...state,
+				isComplete: true,
+			}
+
+		case action.type === 'RESET':
+			return getInitialState(state.numberOfFlashcards)
+
 		default:
 			return state
 	}
@@ -55,11 +77,10 @@ type UseFlashcardReviewerStateArgs = {
 const useFlashcardReviewerState = ({
 	numberOfFlashcards,
 }: UseFlashcardReviewerStateArgs) => {
-	const value = useReducer(flashcardStateReducer, {
-		numberOfFlashcards,
-		currentFlashcardIndex: 0,
-		isDefinitionShown: false,
-	})
+	const value = useReducer(
+		flashcardStateReducer,
+		getInitialState(numberOfFlashcards),
+	)
 
 	return value
 }
