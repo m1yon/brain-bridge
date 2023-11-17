@@ -8,6 +8,7 @@ import useFlashcardReviewerState from './hooks/useFlashcardReviewerState'
 import Flashcard from './Flashcard'
 import NextFlashcardButton from './NextFlashcardButton'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type FlashcardReviewerProps = {
 	setId: string
@@ -20,6 +21,7 @@ const FlashcardReviewer = ({
 	setName,
 	flashcards,
 }: FlashcardReviewerProps) => {
+	const router = useRouter()
 	const [state, dispatch] = useFlashcardReviewerState({
 		numberOfFlashcards: flashcards.length,
 	})
@@ -44,6 +46,11 @@ const FlashcardReviewer = ({
 	useKey(' ', () => {
 		if (document.activeElement?.tagName === 'BODY') {
 			dispatch({ type: 'FLIP_FLASHCARD' })
+		}
+	})
+	useKey('Escape', () => {
+		if (document.activeElement?.tagName === 'BODY') {
+			router.push(`/set/${setId}`)
 		}
 	})
 
