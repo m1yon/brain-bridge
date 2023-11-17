@@ -1,6 +1,7 @@
 import FlashcardReviewer from '@/components/flashcards/FlashcardReviewer'
 import { SetService } from '@/services'
 import { unstable_cache } from 'next/cache'
+import { notFound } from 'next/navigation'
 
 export default async function ReviewSetPage({
 	params,
@@ -16,9 +17,13 @@ export default async function ReviewSetPage({
 	)
 	const set = await getSetCached()
 
+	if (!set) {
+		notFound()
+	}
+
 	return (
-		<main className="mx-6 my-12">
-			<FlashcardReviewer flashcards={set?.flashcards || []} />
+		<main className="h-screen">
+			<FlashcardReviewer setName={set.name} flashcards={set.flashcards || []} />
 		</main>
 	)
 }

@@ -15,7 +15,7 @@ const Flashcard = ({
 }: FlashcardProps) => {
 	return (
 		<div
-			className="group h-96 cursor-pointer select-none duration-200 ease-out animate-in fade-in slide-in-from-top-8 perspective-1000"
+			className="group h-full cursor-pointer select-none duration-200 ease-out animate-in fade-in slide-in-from-top-8 perspective-1000"
 			onClick={onClick}
 		>
 			<div
@@ -24,10 +24,10 @@ const Flashcard = ({
 					isDefinitionShown && 'rotate-x-180',
 				)}
 			>
-				<div className="absolute flex h-full w-full items-center justify-center bg-secondary text-2xl text-secondary-foreground backface-hidden">
+				<div className="absolute flex h-full w-full items-center justify-center bg-secondary p-16 text-2xl text-secondary-foreground backface-hidden">
 					{term}
 				</div>
-				<div className="absolute flex h-full w-full items-center justify-center overflow-hidden bg-secondary text-2xl text-secondary-foreground rotate-x-180 backface-hidden">
+				<div className="absolute flex h-full w-full items-center justify-center overflow-hidden bg-secondary p-16 text-2xl text-secondary-foreground rotate-x-180 backface-hidden">
 					{definition}
 				</div>
 			</div>
