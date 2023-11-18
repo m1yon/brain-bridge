@@ -26,7 +26,7 @@ export default async function SetPage({
 	const set = await getSetCached()
 
 	return (
-		<main className="mx-6 my-12">
+		<main className="mx-6 my-8">
 			<div className="mb-6 flex justify-between">
 				<div>
 					<Link href="/">

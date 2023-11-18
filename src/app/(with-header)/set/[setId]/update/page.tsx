@@ -25,7 +25,7 @@ export default async function UpdateSetPage({
 	}
 
 	return (
-		<main className="mx-6 my-12">
+		<main className="mx-6 my-8">
 			<Link href={`/set/${set.id}`}>
 				<Button variant="link" className="pl-0">
 					<ArrowLeftIcon className="mr-1 inline" />
