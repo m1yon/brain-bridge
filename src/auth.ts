@@ -3,9 +3,9 @@ import type { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
 
 export const authConfig = {
-	// pages: {
-	// 	signIn: '/login',
-	// },
+	pages: {
+		signIn: '/login',
+	},
 	providers: [
 		GitHub({
 			clientId: process.env.GITHUB_ID,
@@ -13,7 +13,7 @@ export const authConfig = {
 		}),
 	],
 	callbacks: {
-		authorized: async ({ auth, request: { nextUrl } }) => {
+		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user
 			const isLoginPage = nextUrl.pathname.startsWith('/login')
 

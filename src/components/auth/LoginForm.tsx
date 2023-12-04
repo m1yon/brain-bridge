@@ -20,6 +20,10 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import LoginFormFooter from './LoginFormFooter'
+import { Button } from '../primitives/Button'
+import { signIn } from 'next-auth/react'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { Separator } from '../primitives/Separator'
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -41,6 +45,24 @@ const LoginForm = () => {
 			<CardHeader>
 				<CardTitle>Login</CardTitle>
 			</CardHeader>
+
+			<CardContent>
+				<Button
+					className="w-full bg-[#333] text-[#fafafa] hover:bg-[#444]"
+					onClick={() => void signIn('github', { callbackUrl: '/' })}
+				>
+					<GitHubLogoIcon className="mr-3 h-5 w-5" />
+					Sign in with GitHub
+				</Button>
+			</CardContent>
+
+			<CardContent>
+				<div className="flex flex-row items-center gap-5">
+					<Separator className="shrink" />
+					<span>or</span>
+					<Separator className="shrink" />
+				</div>
+			</CardContent>
 
 			<Form {...form}>
 				<form
