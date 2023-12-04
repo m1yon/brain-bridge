@@ -15,7 +15,6 @@ import {
 	FormMessage,
 } from '@/components/primitives/Form'
 import { Input } from '@/components/primitives/Input'
-import { AuthService } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -50,12 +49,7 @@ const LoginForm = () => {
 						const valid = await form.trigger()
 
 						if (valid) {
-							const result = await AuthService.login(form.getValues())
-
-							if (result.error) {
-								form.setError('root', { message: result.error.message })
-								return
-							}
+							// TODO: validate
 
 							router.push('/')
 						}
