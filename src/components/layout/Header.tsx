@@ -1,14 +1,25 @@
 import Link from 'next/link'
-import SignOutButton from '../auth/SignOutButton'
+import { auth } from '@/auth'
+import UserInformation from './UserInformation'
 
-const Header = () => {
+const Header = async () => {
+	const session = await auth()
+
+	const nameInitials = session?.user?.name
+		?.split(' ')
+		.map((word) => word[0])
+		.join('')
+
 	return (
 		<header className="flex items-center justify-between border-b px-6 py-4">
 			<Link href="/">
 				<h1 className="text-lg font-medium text-primary">bb</h1>
 			</Link>
 
-			<SignOutButton />
+			<UserInformation
+				image={session?.user?.image ?? ''}
+				fallbackText={`${nameInitials?.[0]}${nameInitials?.[1]}`}
+			/>
 		</header>
 	)
 }
