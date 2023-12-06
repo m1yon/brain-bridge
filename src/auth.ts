@@ -53,6 +53,16 @@ export const authConfig = {
 				return false
 			}
 		},
+		session: ({ session, token }) => {
+			if (session.user && token.sub) {
+				session.user.id = getUserId({
+					id: token.sub,
+					provider: 'github',
+				})
+			}
+
+			return session
+		},
 	},
 } satisfies NextAuthConfig
 
