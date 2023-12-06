@@ -11,7 +11,7 @@ export const flashcards = mysqlTable('flashcards', {
 	id: char('id', { length: 128 }).primaryKey(),
 	term: text('term').notNull(),
 	definition: text('definition').notNull(),
-	setId: char('set_id'),
+	setId: char('set_id', { length: 128 }),
 })
 
 export const setRelations = relations(sets, ({ many }) => ({
