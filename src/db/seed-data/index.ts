@@ -1,7 +1,19 @@
-export const seedData = [
+import { User } from '@/lib/data-access/interfaces/IUser'
+
+export const users: Array<User> = [
+	{
+		id: 'aacdac66-7988-6e49-0b79-0d9312d0e516',
+		name: 'Michael Lyon',
+		email: 'github.drone477@passinbox.com',
+		image: 'https://avatars.githubusercontent.com/u/37197876?v=4',
+	},
+]
+
+export const sets = [
 	{
 		name: 'HTML Fundamentals',
 		description: 'Core concepts and elements of HTML',
+		userId: 'aacdac66-7988-6e49-0b79-0d9312d0e516',
 		flashcards: [
 			{
 				term: 'HTML',
@@ -58,6 +70,7 @@ export const seedData = [
 	{
 		name: 'CSS Essentials',
 		description: 'Fundamental concepts and properties of CSS',
+		userId: 'aacdac66-7988-6e49-0b79-0d9312d0e516',
 		flashcards: [
 			{
 				term: 'CSS',
@@ -113,6 +126,7 @@ export const seedData = [
 	{
 		name: 'JavaScript Basics',
 		description: 'Key concepts and fundamentals of JavaScript',
+		userId: 'aacdac66-7988-6e49-0b79-0d9312d0e516',
 		flashcards: [
 			{ term: 'Variable', definition: 'Containers for storing data values.' },
 			{

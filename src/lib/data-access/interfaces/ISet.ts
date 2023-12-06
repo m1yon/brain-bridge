@@ -6,11 +6,12 @@ export interface Set {
 	description?: string
 	flashcards: Flashcard[]
 	flashcardCount: number
+	userId: string
 }
 
 export interface SetOperations {
 	createSet(
-		args: Pick<Set, 'name' | 'description'> & {
+		args: Pick<Set, 'name' | 'description' | 'userId'> & {
 			flashcards: Array<Pick<Flashcard, 'term' | 'definition'>>
 		},
 	): Promise<{ id: string }>

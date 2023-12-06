@@ -20,6 +20,7 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 					...flashcard,
 					setId: newSetId,
 					id: uuidv4(),
+					userId: args.userId,
 				})),
 			)
 		}
