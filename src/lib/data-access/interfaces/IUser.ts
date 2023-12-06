@@ -6,7 +6,5 @@ export interface User {
 }
 
 export interface UserOperations {
-	createUser: (
-		args: Pick<User, 'name' | 'email' | 'image'>,
-	) => Promise<{ id: string }>
+	createUser: (args: User) => Promise<{ id: string }>
 }
