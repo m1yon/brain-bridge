@@ -1,4 +1,3 @@
-import { unstable_cache } from 'next/cache'
 import * as drizzleFlashCardOperations from './lib/data-access/implementations/DrizzleFlashCard'
 import * as drizzleSetOperations from './lib/data-access/implementations/DrizzleSet'
 import * as drizzleUserOperations from './lib/data-access/implementations/DrizzleUser'
@@ -11,17 +10,8 @@ export const FlashCardService: FlashcardOperations = {
 	...drizzleFlashCardOperations,
 }
 
-export const SetService: SetOperations & {
-	cache: Pick<SetOperations, 'getAllSets'>
-} = {
+export const SetService: SetOperations = {
 	...drizzleSetOperations,
-	cache: {
-		getAllSets: unstable_cache(
-			async () => SetService.getAllSets(),
-			['get-all-sets'],
-			{ tags: ['get-all-sets'] },
-		),
-	},
 }
 
 export const UserService: UserOperations = {

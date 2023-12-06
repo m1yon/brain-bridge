@@ -3,59 +3,64 @@
 import { flashcards, sets } from '@/db/schema'
 import { SetOperations } from '../interfaces/ISet'
 import { db } from '@/db'
-import { revalidateTag } from 'next/cache'
 import { eq } from 'drizzle-orm'
-import invariant from '@/utils/invariant'
-
-export const getAllSets: SetOperations['getAllSets'] = async () => {
-	const result = await db.query.sets.findMany({ with: { flashcards: true } })
-
-	return result.map((set) => {
-		return { ...set, flashcardCount: set.flashcards.length }
-	})
-}
+import { v4 as uuidv4 } from 'uuid'
+import { nullsToUndefined } from '@/utils/nullsToUndefined'
 
 export const createSet: SetOperations['createSet'] = async (args) => {
-	const newSet = await db.transaction(async (tx) => {
-		const [item] = await tx.insert(sets).values(args).returning()
+	const newSetId = uuidv4()
 
-		invariant(item, `Set insert returned ${String(item)}`)
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+	await db.transaction(async (tx) => {
+		await tx.insert(sets).values({ ...args, id: newSetId })
 
 		if (args.flashcards.length) {
 			await tx.insert(flashcards).values(
 				args.flashcards.map((flashcard) => ({
 					...flashcard,
-					setId: item?.id,
+					setId: newSetId,
+					id: uuidv4(),
 				})),
 			)
 		}
-
-		return item
 	})
 
-	revalidateTag('get-all-sets')
-
-	return newSet?.id
+	return { id: newSetId }
 }
 
-export const getSet: SetOperations['getSet'] = async (setId) => {
+export const getAllSets: SetOperations['getAllSets'] = async () => {
+	const result = await db.query.sets.findMany({ with: { flashcards: true } })
+
+	return result.map((set) => {
+		return {
+			...set,
+			flashcardCount: set.flashcards.length,
+			description: set.description ?? undefined,
+		}
+	})
+}
+
+export const getSet: SetOperations['getSet'] = async ({ id }) => {
 	const result = await db.query.sets.findFirst({
-		where: eq(sets.id, setId),
+		where: eq(sets.id, id),
 		with: { flashcards: true },
 	})
 
 	if (!result) return
 
-	return { ...result, flashcardCount: result.flashcards.length }
+	return nullsToUndefined({
+		...result,
+		flashcardCount: result.flashcards.length,
+	})
 }
 
-export const deleteSet: SetOperations['deleteSet'] = async (setId) => {
+export const deleteSet: SetOperations['deleteSet'] = async ({ id }) => {
 	await db.transaction(async (tx) => {
-		await tx.delete(flashcards).where(eq(flashcards.setId, setId))
-		await tx.delete(sets).where(eq(sets.id, setId))
+		await tx.delete(flashcards).where(eq(flashcards.setId, id))
+		await tx.delete(sets).where(eq(sets.id, id))
 	})
 
-	revalidateTag('get-all-sets')
+	return { success: true }
 }
 
 export const updateSet: SetOperations['updateSet'] = async (args) => {
@@ -73,7 +78,5 @@ export const updateSet: SetOperations['updateSet'] = async (args) => {
 		}
 	})
 
-	revalidateTag(`get-set-${args.id}`)
-
-	return
+	return { success: true }
 }

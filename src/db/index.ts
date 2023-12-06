@@ -1,16 +1,17 @@
 import dotenv from 'dotenv'
-import postgres from 'postgres'
+import { drizzle } from 'drizzle-orm/planetscale-serverless'
+import { connect } from '@planetscale/database'
 import * as schema from './schema'
-import { drizzle } from 'drizzle-orm/postgres-js'
 import { serverEnvVariables } from '@/env.server'
 
 // required for Drizzle Kit
 dotenv.config()
 dotenv.config({ path: '.env.local', override: true })
 
-const connectionString = serverEnvVariables.DATABASE_URL
-const client = postgres(connectionString, {
-	idle_timeout: 20,
-	max_lifetime: 60,
+const connection = connect({
+	host: serverEnvVariables.DATABASE_HOST,
+	username: serverEnvVariables.DATABASE_USERNAME,
+	password: serverEnvVariables.DATABASE_PASSWORD,
 })
-export const db = drizzle(client, { schema })
+
+export const db = drizzle(connection, { schema })

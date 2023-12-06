@@ -1,17 +1,17 @@
 import { relations } from 'drizzle-orm'
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core'
+import { mysqlTable, text, char } from 'drizzle-orm/mysql-core'
 
-export const sets = pgTable('sets', {
-	id: uuid('id').primaryKey().defaultRandom(),
+export const sets = mysqlTable('sets', {
+	id: char('id', { length: 128 }).primaryKey(),
 	name: text('name').notNull(),
 	description: text('description'),
 })
 
-export const flashcards = pgTable('flashcards', {
-	id: uuid('id').primaryKey().defaultRandom(),
+export const flashcards = mysqlTable('flashcards', {
+	id: char('id', { length: 128 }).primaryKey(),
 	term: text('term').notNull(),
 	definition: text('definition').notNull(),
-	setId: uuid('set_id').references(() => sets.id),
+	setId: char('set_id'),
 })
 
 export const setRelations = relations(sets, ({ many }) => ({
@@ -25,8 +25,8 @@ export const flashcardsRelations = relations(flashcards, ({ one }) => ({
 	}),
 }))
 
-export const users = pgTable('users', {
-	id: uuid('id').primaryKey().defaultRandom(),
+export const users = mysqlTable('users', {
+	id: char('id', { length: 128 }).primaryKey(),
 	name: text('name').notNull(),
 	email: text('email').notNull(),
 	image: text('image'),

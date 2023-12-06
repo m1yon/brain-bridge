@@ -3,9 +3,17 @@ import Set from './Set'
 import { Button } from '../primitives/Button'
 import { PlusIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { unstable_cache } from 'next/cache'
 
 const SetGrid = async () => {
-	const sets = await SetService.cache.getAllSets()
+	const getAllSetsCached = unstable_cache(
+		async () => SetService.getAllSets(),
+		[`get-all-sets`],
+		{
+			tags: [`get-all-sets`],
+		},
+	)
+	const sets = await getAllSetsCached()
 
 	return (
 		<div className="mb-4 grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

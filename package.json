@@ -5,17 +5,17 @@
 	"type": "module",
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && pnpm migrations:run",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
 		"type-check": "tsc",
 		"format": "prettier . --write",
-		"migrations:generate": "drizzle-kit generate:pg",
-		"migrations:run": "tsx src/db/migrate.ts",
-		"seed": "tsx src/db/seed.ts"
+		"seed": "tsx src/db/seed.ts",
+		"db:push": "drizzle-kit push:mysql"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.2",
+		"@planetscale/database": "^1.11.0",
 		"@radix-ui/react-avatar": "^1.0.4",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
 		"@radix-ui/react-icons": "^1.3.0",
@@ -29,11 +29,13 @@
 		"drizzle-orm": "^0.29.0",
 		"next": "14.0.3",
 		"next-auth": "5.0.0-beta.4",
+		"next-safe-action": "^5.2.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.48.2",
 		"react-use": "^17.4.0",
 		"tailwind-merge": "^2.0.0",
+		"uuid": "^9.0.1",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
@@ -43,6 +45,7 @@
 		"@types/node": "^20.9.0",
 		"@types/react": "^18.2.37",
 		"@types/react-dom": "^18.2.15",
+		"@types/uuid": "^9.0.7",
 		"@typescript-eslint/eslint-plugin": "^6.10.0",
 		"@typescript-eslint/parser": "^6.10.0",
 		"autoprefixer": "^10.4.16",
@@ -52,7 +55,6 @@
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-tailwindcss": "^3.13.0",
 		"postcss": "^8.4.31",
-		"postgres": "^3.4.3",
 		"prettier": "^3.0.3",
 		"tailwindcss": "^3.3.5",
 		"tailwindcss-3d": "^1.0.2",

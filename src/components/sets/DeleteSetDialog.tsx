@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '../primitives/Button'
-import { SetService } from '@/services'
 import { TrashIcon } from '@radix-ui/react-icons'
 import {
 	Dialog,
@@ -15,6 +14,7 @@ import {
 import { useParams, useRouter } from 'next/navigation'
 import DeleteSetDialogActions from './DeleteSetDialogActions'
 import { useToast } from '@/hooks/useToast'
+import { SetActions } from '@/actions'
 
 type DeleteSetDialogProps = {
 	name: string
@@ -37,7 +37,7 @@ const DeleteSetDialog = ({ name }: DeleteSetDialogProps) => {
 				<form
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					action={async () => {
-						await SetService.deleteSet(String(params.setId))
+						await SetActions.deleteSet({ id: String(params.setId) })
 						router.push('/')
 						toast({ description: `"${name}" has been deleted.` })
 					}}

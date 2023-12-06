@@ -3,9 +3,8 @@ import { serverEnvVariables } from './src/env.server'
 
 export default {
 	schema: './src/db/schema.ts',
-	out: './drizzle/migrations',
-	driver: 'pg',
+	driver: 'mysql2',
 	dbCredentials: {
-		connectionString: serverEnvVariables.DATABASE_URL,
+		uri: serverEnvVariables.DATABASE_URL,
 	},
 } satisfies Config

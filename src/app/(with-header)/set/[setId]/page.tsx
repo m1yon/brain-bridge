@@ -17,7 +17,7 @@ export default async function SetPage({
 	params: { setId: string }
 }) {
 	const getSetCached = unstable_cache(
-		async () => SetService.getSet(params.setId),
+		async () => SetService.getSet({ id: params.setId }),
 		[`get-set-${params.setId}`],
 		{
 			tags: [`get-set-${params.setId}`],
@@ -78,7 +78,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const id = params.setId
 
-	const set = await SetService.getSet(id)
+	const set = await SetService.getSet({ id })
 
 	return {
 		title: `${set?.name} - Brain Bridge`,

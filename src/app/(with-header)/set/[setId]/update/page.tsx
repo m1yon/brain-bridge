@@ -12,7 +12,7 @@ export default async function UpdateSetPage({
 	params: { setId: string }
 }) {
 	const getSetCached = unstable_cache(
-		async () => SetService.getSet(params.setId),
+		async () => SetService.getSet({ id: params.setId }),
 		[`get-set-${params.setId}`],
 		{
 			tags: [`get-set-${params.setId}`],

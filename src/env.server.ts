@@ -6,6 +6,10 @@ dotenv.config()
 dotenv.config({ path: '.env.local', override: true })
 
 const serverEnvVariablesSchema = z.object({
+	DATABASE_HOST: z.string(),
+	DATABASE_USERNAME: z.string(),
+	DATABASE_PASSWORD: z.string(),
+	DB_NAME: z.string(),
 	DATABASE_URL: z.string(),
 })
 

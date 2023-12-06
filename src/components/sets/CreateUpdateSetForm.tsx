@@ -12,7 +12,6 @@ import {
 import { Input } from '../primitives/Input'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SetService } from '@/services'
 import CreateUpdateSetFormActions from './CreateUpdateSetFormActions'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/hooks/useToast'
@@ -21,6 +20,7 @@ import { Card, CardContent, CardHeader } from '../primitives/Card'
 import { Button } from '../primitives/Button'
 import { PlusIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Set } from '@/lib/data-access/interfaces/ISet'
+import { SetActions } from '@/actions'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),
@@ -65,10 +65,10 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 
 					if (valid) {
 						if (setToUpdate) {
-							await SetService.updateSet({
+							await SetActions.updateSet({
 								id: setToUpdate.id,
 								...form.getValues(),
-								description: form.getValues().description || null,
+								description: form.getValues().description,
 							})
 
 							router.replace(`/set/${setToUpdate.id}`)
@@ -79,12 +79,14 @@ const CreateUpdateSetForm = ({ setToUpdate }: CreateUpdateSetFormProps) => {
 							return
 						}
 
-						const setId = await SetService.createSet({
+						const { data } = await SetActions.createSet({
 							...form.getValues(),
-							description: form.getValues().description || null,
+							description: form.getValues().description,
 						})
 
-						router.replace(setId)
+						if (data) {
+							router.replace(data?.id)
+						}
 
 						toast({
 							description: `New set "${

@@ -3,23 +3,23 @@ import { Flashcard } from './IFlashCard'
 export interface Set {
 	id: string
 	name: string
-	description: string | null
+	description?: string
 	flashcards: Flashcard[]
 	flashcardCount: number
 }
 
 export interface SetOperations {
-	getSet(id: string): Promise<Set | undefined>
-	getAllSets(): Promise<Omit<Set, 'flashcards'>[]>
 	createSet(
 		args: Pick<Set, 'name' | 'description'> & {
 			flashcards: Array<Pick<Flashcard, 'term' | 'definition'>>
 		},
-	): Promise<string>
-	deleteSet(id: string): Promise<void>
+	): Promise<{ id: string }>
+	getSet(args: { id: string }): Promise<Set | undefined>
+	getAllSets(): Promise<Omit<Set, 'flashcards'>[]>
 	updateSet(
 		args: Pick<Set, 'id' | 'name' | 'description'> & {
 			flashcards: Array<Pick<Flashcard, 'id' | 'term' | 'definition'>>
 		},
-	): Promise<void>
+	): Promise<{ success: boolean; error?: Error }>
+	deleteSet(args: { id: string }): Promise<{ success: boolean; error?: Error }>
 }
