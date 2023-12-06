@@ -1,9 +1,7 @@
-import dotenv from 'dotenv'
 import { z } from 'zod'
+import { isomorphicLoadEnv } from './utils/isomorphicLoadEnv'
 
-// required for Drizzle Kit
-dotenv.config()
-dotenv.config({ path: '.env.local', override: true })
+isomorphicLoadEnv()
 
 const serverEnvVariablesSchema = z.object({
 	DATABASE_HOST: z.string(),

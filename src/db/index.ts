@@ -1,12 +1,10 @@
-import dotenv from 'dotenv'
 import { drizzle } from 'drizzle-orm/planetscale-serverless'
 import { connect } from '@planetscale/database'
 import * as schema from './schema'
 import { serverEnvVariables } from '@/env.server'
+import { isomorphicLoadEnv } from '@/utils/isomorphicLoadEnv'
 
-// required for Drizzle Kit
-dotenv.config()
-dotenv.config({ path: '.env.local', override: true })
+isomorphicLoadEnv()
 
 const connection = connect({
 	host: serverEnvVariables.DATABASE_HOST,
