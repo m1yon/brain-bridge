@@ -12,7 +12,8 @@
 		"format": "prettier . --write",
 		"db:seed": "tsx src/db/seed.ts",
 		"db:push": "drizzle-kit push:mysql",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"test": "vitest"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.2",
@@ -64,7 +65,8 @@
 		"tailwindcss-3d": "^1.0.2",
 		"tailwindcss-animate": "^1.0.7",
 		"tsx": "^4.6.2",
-		"typescript": "^5.2.2"
+		"typescript": "^5.2.2",
+		"vitest": "^1.0.1"
 	},
 	"volta": {
 		"node": "18.18.2",

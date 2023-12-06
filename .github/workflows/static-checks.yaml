@@ -73,6 +73,11 @@ jobs:
         run: pnpm run type-check
         continue-on-error: true
 
+      - name: run unit and integration tests
+        id: unit-integration-tests
+        run: pnpm run test
+        continue-on-error: true
+
       - name: Results
         run: |
           FAIL=0
@@ -104,6 +109,13 @@ jobs:
             FAIL=1
           else
             results_table+="| pnpm type-check | ✅ |\n"
+          fi
+
+          if [ "${{ steps.unit-integration-tests.outcome }}" == "failure" ]; then
+            results_table+="| pnpm test| ❌ |\n"
+            FAIL=1
+          else
+            results_table+="| pnpm test | ✅ |\n"
           fi
 
           echo "Check Results:"
