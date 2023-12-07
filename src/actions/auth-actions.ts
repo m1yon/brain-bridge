@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { action } from './client'
 import { ProviderSchema } from '@/lib/constants/Provider'
 
-const signOutSchema = z.object({})
+const signOutSchema = z.void()
 
 export const signOut = action(signOutSchema, async () => {
 	await AuthService.signOut()

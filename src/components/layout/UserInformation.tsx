@@ -27,7 +27,7 @@ const UserInformation = ({ image, fallbackText }: UserInformationProps) => {
 			<DropdownMenuContent side="bottom" align="end" sideOffset={10}>
 				<form
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					action={async () => AuthActions.signOut({})}
+					action={async () => AuthActions.signOut()}
 				>
 					<button type="submit" className="w-full">
 						<DropdownMenuItem>
