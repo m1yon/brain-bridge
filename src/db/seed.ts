@@ -1,6 +1,7 @@
 import { intro, outro, spinner } from '@clack/prompts'
-import { sets, users } from './seed-data'
 import { SetService, UserService } from '@/services'
+import { users } from './seed-data/users'
+import { sets } from './seed-data/sets'
 
 intro('Seed DB')
 
@@ -19,12 +20,11 @@ s.stop('Users seeded')
 s.start('Seeding sets and flashcards')
 
 await Promise.all(
-	sets.map(({ name, description, flashcards, userId }) => {
+	sets.map(({ name, description, flashcards }) => {
 		return SetService.createSet({
 			name,
 			description,
 			flashcards,
-			userId,
 		})
 	}),
 )

@@ -1,7 +1,6 @@
 'use client'
 
 import { ExitIcon } from '@radix-ui/react-icons'
-import { signOutAction } from '../../lib/auth/actions'
 import { Avatar, AvatarFallback, AvatarImage } from '../primitives/Avatar'
 import {
 	DropdownMenu,
@@ -9,6 +8,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '../primitives/DropdownMenu'
+import { AuthActions } from '@/actions'
 
 type UserInformationProps = {
 	image: string
@@ -27,7 +27,7 @@ const UserInformation = ({ image, fallbackText }: UserInformationProps) => {
 			<DropdownMenuContent side="bottom" align="end" sideOffset={10}>
 				<form
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					action={async () => signOutAction()}
+					action={async () => AuthActions.signOut({})}
 				>
 					<button type="submit" className="w-full">
 						<DropdownMenuItem>

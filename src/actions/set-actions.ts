@@ -1,7 +1,7 @@
 'use server'
 
 import { z } from 'zod'
-import { action } from '.'
+import { action } from './client'
 import { SetService } from '@/services'
 import { revalidateTag } from 'next/cache'
 

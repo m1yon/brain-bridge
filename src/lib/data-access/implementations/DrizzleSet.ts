@@ -6,13 +6,17 @@ import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { v4 as uuidv4 } from 'uuid'
 import { nullsToUndefined } from '@/utils/nullsToUndefined'
+import { AuthService } from '@/services'
 
 export const createSet: SetOperations['createSet'] = async (args) => {
 	const newSetId = uuidv4()
 
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	await db.transaction(async (tx) => {
-		await tx.insert(sets).values({ ...args, id: newSetId })
+		const session = await AuthService.getSession()
+		const userId = session.user.id
+
+		await tx.insert(sets).values({ ...args, id: newSetId, userId })
 
 		if (args.flashcards.length) {
 			await tx.insert(flashcards).values(
@@ -20,7 +24,7 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 					...flashcard,
 					setId: newSetId,
 					id: uuidv4(),
-					userId: args.userId,
+					userId,
 				})),
 			)
 		}

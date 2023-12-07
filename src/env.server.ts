@@ -9,6 +9,7 @@ const serverEnvVariablesSchema = z.object({
 	DATABASE_PASSWORD: z.string(),
 	DB_NAME: z.string(),
 	DATABASE_URL: z.string(),
+	IS_SEED_RUN: z.string().optional(),
 })
 
 export const serverEnvVariables = serverEnvVariablesSchema.parse(process.env)

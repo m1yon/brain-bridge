@@ -11,7 +11,7 @@ export interface Set {
 
 export interface SetOperations {
 	createSet(
-		args: Pick<Set, 'name' | 'description' | 'userId'> & {
+		args: Pick<Set, 'name' | 'description'> & {
 			flashcards: Array<Pick<Flashcard, 'term' | 'definition'>>
 		},
 	): Promise<{ id: string }>

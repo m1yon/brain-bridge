@@ -21,9 +21,9 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import LoginFormFooter from './LoginFormFooter'
 import { Button } from '../primitives/Button'
-import { signIn } from 'next-auth/react'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { Separator } from '../primitives/Separator'
+import { AuthActions } from '@/actions'
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -49,7 +49,9 @@ const LoginForm = () => {
 			<CardContent>
 				<Button
 					className="w-full bg-[#333] text-[#fafafa] hover:bg-[#444]"
-					onClick={() => void signIn('github', { callbackUrl: '/' })}
+					onClick={() =>
+						void AuthActions.signIn({ provider: 'github', redirectTo: '/' })
+					}
 				>
 					<GitHubLogoIcon className="mr-3 h-5 w-5" />
 					Sign in with GitHub

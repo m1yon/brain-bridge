@@ -10,7 +10,7 @@
 		"lint": "next lint",
 		"type-check": "tsc",
 		"format": "prettier . --write",
-		"db:seed": "tsx src/db/seed.ts",
+		"db:seed": "IS_SEED_RUN=true tsx src/db/seed.ts",
 		"db:push": "drizzle-kit push:mysql",
 		"db:studio": "drizzle-kit studio",
 		"test": "vitest"
