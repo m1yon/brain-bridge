@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { auth } from '@/auth'
 import UserInformation from './UserInformation'
+import { AuthService } from '@/services'
 
 const Header = async () => {
-	const session = await auth()
+	const session = await AuthService.getSession()
 
 	const nameInitials = session?.user?.name
 		?.split(' ')

@@ -1,10 +1,9 @@
-import NextAuth from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
-import { UserService } from './services'
-import invariant from './utils/invariant'
-import { getUserId } from './utils/getUserId'
-import { isProvider } from './lib/constants/Provider'
+import { UserService } from '../../../../services'
+import invariant from '@/utils/invariant'
+import { isProvider } from '@/lib/constants/Provider'
+import { getUserId } from '@/utils/getUserId'
 
 export const authConfig = {
 	pages: {
@@ -65,7 +64,3 @@ export const authConfig = {
 		},
 	},
 } satisfies NextAuthConfig
-
-export const { auth, signIn, signOut, handlers } = NextAuth({
-	...authConfig,
-})
