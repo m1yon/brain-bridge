@@ -1,5 +1,5 @@
 import FlashcardReviewer from '@/components/flashcards/FlashcardReviewer'
-import { SetService } from '@/services'
+import { SetService } from '@/lib/services'
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 

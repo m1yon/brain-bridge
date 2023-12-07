@@ -1,6 +1,6 @@
 import type { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
-import { UserService } from '../../../../services'
+import { UserService } from '../../../services'
 import invariant from '@/utils/invariant'
 import { isProvider } from '@/lib/constants/Provider'
 import { getUserId } from '@/utils/getUserId'

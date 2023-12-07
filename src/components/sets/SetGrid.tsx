@@ -1,4 +1,4 @@
-import { SetService } from '@/services'
+import { SetService } from '@/lib/services'
 import Set from './Set'
 import { Button } from '../primitives/Button'
 import { PlusIcon } from '@radix-ui/react-icons'

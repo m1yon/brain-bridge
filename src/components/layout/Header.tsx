@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import UserInformation from './UserInformation'
-import { AuthService } from '@/services'
+import { AuthService } from '@/lib/services'
 
 const Header = async () => {
 	const session = await AuthService.getSession()

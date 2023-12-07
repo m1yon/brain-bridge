@@ -1,6 +1,6 @@
 'use server'
 
-import { AuthService } from '@/services'
+import { AuthService } from '@/lib/services'
 import { z } from 'zod'
 import { action } from './client'
 import { ProviderSchema } from '@/lib/constants/Provider'

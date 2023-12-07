@@ -1,6 +1,6 @@
 import { Button } from '@/components/primitives/Button'
 import CreateUpdateSetForm from '@/components/sets/CreateUpdateSetForm'
-import { SetService } from '@/services'
+import { SetService } from '@/lib/services'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'

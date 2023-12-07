@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 import { action } from './client'
-import { SetService } from '@/services'
+import { SetService } from '@/lib/services'
 import { revalidateTag } from 'next/cache'
 
 const createSetSchema = z.object({

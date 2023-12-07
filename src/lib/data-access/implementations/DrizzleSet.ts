@@ -6,7 +6,7 @@ import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { v4 as uuidv4 } from 'uuid'
 import { nullsToUndefined } from '@/utils/nullsToUndefined'
-import { AuthService } from '@/services'
+import { AuthService } from '@/lib/services'
 
 export const createSet: SetOperations['createSet'] = async (args) => {
 	const newSetId = uuidv4()

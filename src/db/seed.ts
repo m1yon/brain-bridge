@@ -1,5 +1,5 @@
 import { intro, outro, spinner } from '@clack/prompts'
-import { SetService, UserService } from '@/services'
+import { SetService, UserService } from '@/lib/services'
 import { users } from './seed-data/users'
 import { sets } from './seed-data/sets'
 
