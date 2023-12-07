@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { nullsToUndefined } from '@/lib/utils/nullsToUndefined'
 import { AuthService } from '@/lib/services'
 import { getSession } from '@/lib/auth/implementations/NextAuth/operations'
+import invariant from '@/lib/utils/invariant'
 
 export const createSet: SetOperations['createSet'] = async (args) => {
 	const newSetId = uuidv4()
@@ -52,10 +53,17 @@ export const getSets: SetOperations['getSets'] = async () => {
 }
 
 export const getSet: SetOperations['getSet'] = async ({ id }) => {
+	const session = await getSession()
+
 	const result = await db.query.sets.findFirst({
 		where: eq(sets.id, id),
 		with: { flashcards: true },
 	})
+
+	invariant(
+		!result || session.user.id === result.userId,
+		'You do not have permission to access this resource',
+	)
 
 	if (!result) return
 
@@ -66,7 +74,16 @@ export const getSet: SetOperations['getSet'] = async ({ id }) => {
 }
 
 export const deleteSet: SetOperations['deleteSet'] = async ({ id }) => {
+	const session = await getSession()
+
 	await db.transaction(async (tx) => {
+		const set = await tx.query.sets.findFirst({ where: eq(sets.id, id) })
+
+		invariant(
+			!set || session.user.id === set.userId,
+			'You do not have permission to delete this resource',
+		)
+
 		await tx.delete(flashcards).where(eq(flashcards.setId, id))
 		await tx.delete(sets).where(eq(sets.id, id))
 	})
@@ -75,7 +92,16 @@ export const deleteSet: SetOperations['deleteSet'] = async ({ id }) => {
 }
 
 export const updateSet: SetOperations['updateSet'] = async (args) => {
+	const session = await getSession()
+
 	await db.transaction(async (tx) => {
+		const set = await tx.query.sets.findFirst({ where: eq(sets.id, args.id) })
+
+		invariant(
+			!set || session.user.id === set.userId,
+			'You do not have permission to delete this resource',
+		)
+
 		await tx
 			.update(sets)
 			.set({ name: args.name, description: args.description })
