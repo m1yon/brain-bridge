@@ -2,7 +2,7 @@
 
 import { ArrowLeftIcon, Cross1Icon } from '@radix-ui/react-icons'
 import { Button } from '../primitives/Button'
-import { Flashcard as FlashcardReviewer } from '@/lib/data-access/interfaces/IFlashCard'
+import { Flashcard as FlashcardType } from '@/lib/data-access/interfaces/IFlashcard'
 import { useKey } from 'react-use'
 import useFlashcardReviewerState from './hooks/useFlashcardReviewerState'
 import Flashcard from './Flashcard'
@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 type FlashcardReviewerProps = {
 	setId: string
 	setName: string
-	flashcards: FlashcardReviewer[]
+	flashcards: FlashcardType[]
 }
 
 const FlashcardReviewer = ({

@@ -1,4 +1,4 @@
-import { Flashcard } from './IFlashCard'
+import { Flashcard } from './IFlashcard'
 
 export interface Set {
 	id: string
