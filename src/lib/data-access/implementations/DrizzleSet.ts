@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm'
 import { v4 as uuidv4 } from 'uuid'
 import { nullsToUndefined } from '@/lib/utils/nullsToUndefined'
 import { AuthService } from '@/lib/services'
+import { getSession } from '@/lib/auth/implementations/NextAuth/operations'
 
 export const createSet: SetOperations['createSet'] = async (args) => {
 	const newSetId = uuidv4()
@@ -33,8 +34,13 @@ export const createSet: SetOperations['createSet'] = async (args) => {
 	return { id: newSetId }
 }
 
-export const getAllSets: SetOperations['getAllSets'] = async () => {
-	const result = await db.query.sets.findMany({ with: { flashcards: true } })
+export const getSets: SetOperations['getSets'] = async () => {
+	const session = await getSession()
+
+	const result = await db.query.sets.findMany({
+		with: { flashcards: true },
+		where: eq(sets.userId, session.user.id),
+	})
 
 	return result.map((set) => {
 		return {

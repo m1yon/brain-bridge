@@ -8,9 +8,21 @@ const adminUser = {
 	image: 'https://avatars.githubusercontent.com/u/37197876?v=4',
 }
 
+const normalUser = {
+	id: 'bfcdac62-3948-2v43-1v54-1d93324d3c23',
+	name: 'Luke Skywalker',
+	email: 'lskywalker@gmail.com',
+	image: 'https://avatars.githubusercontent.com/u/37197836?v=4',
+}
+
 export const adminUserSession: Session = {
 	user: adminUser,
 	expires: new Date().toString(),
 }
 
-export const users: Array<User> = [adminUser]
+export const normalUserSession: Session = {
+	user: normalUser,
+	expires: new Date().toString(),
+}
+
+export const users: Array<User> = [adminUser, normalUser]

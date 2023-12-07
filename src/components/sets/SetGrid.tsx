@@ -1,4 +1,4 @@
-import { SetService } from '@/lib/services'
+import { AuthService, SetService } from '@/lib/services'
 import Set from './Set'
 import { Button } from '../primitives/Button'
 import { PlusIcon } from '@radix-ui/react-icons'
@@ -6,14 +6,15 @@ import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 
 const SetGrid = async () => {
-	const getAllSetsCached = unstable_cache(
-		async () => SetService.getAllSets(),
-		[`get-all-sets`],
+	const session = await AuthService.getSession()
+	const getSetsCached = unstable_cache(
+		async () => SetService.getSets(),
+		[`get-sets-${session.user.id}`],
 		{
-			tags: [`get-all-sets`],
+			tags: [`get-sets-${session.user.id}`],
 		},
 	)
-	const sets = await getAllSetsCached()
+	const sets = await getSetsCached()
 
 	return (
 		<div className="mb-4 grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

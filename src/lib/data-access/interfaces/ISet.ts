@@ -16,7 +16,7 @@ export interface SetOperations {
 		},
 	): Promise<{ id: string }>
 	getSet(args: { id: string }): Promise<Set | undefined>
-	getAllSets(): Promise<Omit<Set, 'flashcards'>[]>
+	getSets(): Promise<Omit<Set, 'flashcards'>[]>
 	updateSet(
 		args: Pick<Set, 'id' | 'name' | 'description'> & {
 			flashcards: Array<Pick<Flashcard, 'id' | 'term' | 'definition'>>
