@@ -14,13 +14,13 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import CreateUpdateSetFormActions from './CreateUpdateSetFormActions'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/hooks/useToast'
+import { useToast } from '@/lib/hooks/useToast'
 import { Textarea } from '../primitives/Textarea'
 import { Card, CardContent, CardHeader } from '../primitives/Card'
 import { Button } from '../primitives/Button'
 import { PlusIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Set } from '@/lib/data-access/interfaces/ISet'
-import { SetActions } from '@/actions'
+import { SetActions } from '@/lib/actions'
 
 const formSchema = z.object({
 	name: z.string().min(1, 'Name is required'),

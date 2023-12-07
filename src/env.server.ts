@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isomorphicLoadEnv } from './utils/isomorphicLoadEnv'
+import { isomorphicLoadEnv } from './lib/utils/isomorphicLoadEnv'
 
 isomorphicLoadEnv()
 

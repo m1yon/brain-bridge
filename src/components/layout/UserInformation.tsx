@@ -8,7 +8,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '../primitives/DropdownMenu'
-import { AuthActions } from '@/actions'
+import { AuthActions } from '@/lib/actions'
 
 type UserInformationProps = {
 	image: string

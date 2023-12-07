@@ -23,7 +23,7 @@ import LoginFormFooter from './LoginFormFooter'
 import { Button } from '../primitives/Button'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { Separator } from '../primitives/Separator'
-import { AuthActions } from '@/actions'
+import { AuthActions } from '@/lib/actions'
 
 const formSchema = z.object({
 	email: z.string().email(),

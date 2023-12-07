@@ -13,8 +13,8 @@ import {
 } from '../primitives/Dialog'
 import { useParams, useRouter } from 'next/navigation'
 import DeleteSetDialogActions from './DeleteSetDialogActions'
-import { useToast } from '@/hooks/useToast'
-import { SetActions } from '@/actions'
+import { useToast } from '@/lib/hooks/useToast'
+import { SetActions } from '@/lib/actions'
 
 type DeleteSetDialogProps = {
 	name: string

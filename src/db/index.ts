@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/planetscale-serverless'
 import { connect } from '@planetscale/database'
 import * as schema from './schema'
 import { serverEnvVariables } from '@/env.server'
-import { isomorphicLoadEnv } from '@/utils/isomorphicLoadEnv'
+import { isomorphicLoadEnv } from '@/lib/utils/isomorphicLoadEnv'
 
 isomorphicLoadEnv()
 
