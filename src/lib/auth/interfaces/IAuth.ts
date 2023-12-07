@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Provider } from '../constants/Provider'
+import { Provider } from '../../constants/Provider'
 
 export const SessionSchema = z.object({
 	user: z.object({

@@ -1,4 +1,4 @@
-import { Session } from '@/lib/auth/IAuth'
+import { Session } from '@/lib/auth/interfaces/IAuth'
 import { User } from '@/lib/data-access/interfaces/IUser'
 
 const adminUser = {

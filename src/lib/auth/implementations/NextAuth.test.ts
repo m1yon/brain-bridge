@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { getSession } from './NextAuth'
-import { Session } from './IAuth'
+import { Session } from '../interfaces/IAuth'
 import { adminUserSession } from '@/db/seed-data/users'
 
 vi.mock('next-auth', () => {

@@ -1,5 +1,5 @@
 import { signOut as $signOut, signIn as $signIn, auth } from '@/auth'
-import { AuthOperations, SessionSchema } from './IAuth'
+import { AuthOperations, SessionSchema } from '../interfaces/IAuth'
 import { adminUserSession } from '@/db/seed-data/users'
 
 export const signIn: AuthOperations['signIn'] = async ({
