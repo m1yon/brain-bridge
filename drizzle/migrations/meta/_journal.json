@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1702085570022,
+      "tag": "0000_smooth_toro",
+      "breakpoints": true
+    }
+  ]
+}

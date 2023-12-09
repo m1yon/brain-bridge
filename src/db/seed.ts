@@ -9,25 +9,17 @@ const s = spinner()
 
 s.start('Seeding users')
 
-await Promise.all(
-	users.map((user) => {
-		return UserService.createUser(user)
-	}),
-)
+for await (const user of users) {
+	await UserService.createUser(user)
+}
 
 s.stop('Users seeded')
 
 s.start('Seeding sets and flashcards')
 
-await Promise.all(
-	sets.map(({ name, description, flashcards }) => {
-		return SetService.createSet({
-			name,
-			description,
-			flashcards,
-		})
-	}),
-)
+for await (const set of sets) {
+	await SetService.createSet(set)
+}
 
 s.stop('Sets and flashcards seeded')
 

@@ -14,7 +14,7 @@ export const createUser: UserOperations['createUser'] = async ({
 		.insert(users)
 		.values({ id, name, email, image })
 		// do nothing if the user already exists
-		.onDuplicateKeyUpdate({ set: { id } })
+		.onConflictDoNothing()
 
 	return { id }
 }

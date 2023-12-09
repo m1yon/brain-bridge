@@ -1,15 +1,14 @@
-import { drizzle } from 'drizzle-orm/planetscale-serverless'
-import { connect } from '@planetscale/database'
+import { drizzle } from 'drizzle-orm/libsql'
+import { createClient } from '@libsql/client'
+import { isomorphicLoadEnv } from '@/lib/utils/isomorphicLoadEnv'
 import * as schema from './schema'
 import { serverEnvVariables } from '@/env.server'
-import { isomorphicLoadEnv } from '@/lib/utils/isomorphicLoadEnv'
 
 isomorphicLoadEnv()
 
-const connection = connect({
-	host: serverEnvVariables.DATABASE_HOST,
-	username: serverEnvVariables.DATABASE_USERNAME,
-	password: serverEnvVariables.DATABASE_PASSWORD,
+const client = createClient({
+	url: serverEnvVariables.DATABASE_URL,
+	authToken: serverEnvVariables.DATABASE_AUTH_TOKEN,
 })
 
-export const db = drizzle(connection, { schema })
+export const db = drizzle(client, { schema })

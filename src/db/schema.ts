@@ -1,23 +1,23 @@
 import { relations } from 'drizzle-orm'
-import { mysqlTable, text, char } from 'drizzle-orm/mysql-core'
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-export const sets = mysqlTable('sets', {
-	id: char('id', { length: 128 }).primaryKey(),
+export const sets = sqliteTable('sets', {
+	id: text('id', { length: 128 }).primaryKey(),
 	name: text('name').notNull(),
 	description: text('description'),
-	userId: char('user_id', { length: 128 }).notNull(),
+	userId: text('user_id', { length: 128 }).notNull(),
 })
 
-export const flashcards = mysqlTable('flashcards', {
-	id: char('id', { length: 128 }).primaryKey(),
+export const flashcards = sqliteTable('flashcards', {
+	id: text('id', { length: 128 }).primaryKey(),
 	term: text('term').notNull(),
 	definition: text('definition').notNull(),
-	setId: char('set_id', { length: 128 }),
-	userId: char('user_id', { length: 128 }).notNull(),
+	setId: text('set_id', { length: 128 }),
+	userId: text('user_id', { length: 128 }).notNull(),
 })
 
-export const users = mysqlTable('users', {
-	id: char('id', { length: 128 }).primaryKey(),
+export const users = sqliteTable('users', {
+	id: text('id', { length: 128 }).primaryKey(),
 	name: text('name').notNull(),
 	email: text('email').notNull(),
 	image: text('image'),
