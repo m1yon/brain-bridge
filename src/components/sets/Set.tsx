@@ -10,7 +10,7 @@ type SetProps = Omit<Set, 'flashcards'>
 
 const Set = ({ id, name, description, flashcardCount }: SetProps) => {
 	return (
-		<Link href={`set/${id}`}>
+		<Link href={`/set/${id}`}>
 			<Card
 				key={id}
 				className="focus-active:bg-secondary h-full transition-all duration-75 hover:bg-secondary"
