@@ -1,7 +1,12 @@
+import dotenv from 'dotenv'
 import { intro, outro, spinner } from '@clack/prompts'
-import { SetService, UserService } from '@/lib/services'
-import { users } from './seed-data/users'
-import { sets } from './seed-data/sets'
+
+dotenv.config()
+dotenv.config({ path: '.env.local', override: true })
+
+const { SetService, UserService } = await import('@/lib/services')
+const { users } = await import('../db/seed-data/users')
+const { sets } = await import('../db/seed-data/sets')
 
 intro('Seed DB')
 

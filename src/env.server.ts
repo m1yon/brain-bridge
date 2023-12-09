@@ -1,7 +1,4 @@
 import { z } from 'zod'
-import { isomorphicLoadEnv } from './lib/utils/isomorphicLoadEnv'
-
-isomorphicLoadEnv()
 
 const serverEnvVariablesSchema = z.object({
 	DATABASE_URL: z.string(),
