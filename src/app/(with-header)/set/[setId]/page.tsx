@@ -67,11 +67,11 @@ const SetPage = async ({ params }: { params: { setId: string } }) => {
 	)
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
 	params,
 }: {
 	params: { setId: string }
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
 	const id = params.setId
 
 	const set = await SetService.getSet({ id })
