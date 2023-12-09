@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 import { cn } from '@/lib/utils/cn'
 import { Toaster } from '@/components/primitives/Toaster'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 			<body className={cn(inter.className, 'dark')}>
 				{children}
 				<Toaster />
+				<Analytics />
 			</body>
 		</html>
 	)
