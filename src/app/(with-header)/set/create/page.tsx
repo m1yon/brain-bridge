@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 	description: 'Create a new set.',
 }
 
-export default function CreateSet() {
+const CreateSet = () => {
 	return (
 		<main className="mx-6 my-8">
 			<Link href="/">
@@ -23,3 +23,5 @@ export default function CreateSet() {
 		</main>
 	)
 }
+
+export default CreateSet

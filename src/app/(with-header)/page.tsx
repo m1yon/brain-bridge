@@ -1,6 +1,6 @@
 import SetGrid from '@/components/sets/SetGrid'
 
-export default function Home() {
+const Home = () => {
 	return (
 		<main className="mx-6 my-8">
 			<div>
@@ -10,3 +10,5 @@ export default function Home() {
 		</main>
 	)
 }
+
+export default Home

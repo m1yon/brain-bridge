@@ -1,10 +1,6 @@
 import Header from '@/components/layout/Header'
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
+const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
 			<Header />
@@ -12,3 +8,5 @@ export default function RootLayout({
 		</>
 	)
 }
+
+export default Layout

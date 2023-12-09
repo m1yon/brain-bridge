@@ -11,11 +11,7 @@ import {
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 
-export default async function SetPage({
-	params,
-}: {
-	params: { setId: string }
-}) {
+const SetPage = async ({ params }: { params: { setId: string } }) => {
 	const getSetCached = unstable_cache(
 		async () => SetService.getSet({ id: params.setId }),
 		[`get-set-${params.setId}`],
@@ -84,3 +80,5 @@ export async function generateMetadata({
 		title: `${set?.name} - Brain Bridge`,
 	}
 }
+
+export default SetPage

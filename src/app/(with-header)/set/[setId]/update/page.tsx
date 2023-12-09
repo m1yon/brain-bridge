@@ -6,11 +6,7 @@ import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-export default async function UpdateSetPage({
-	params,
-}: {
-	params: { setId: string }
-}) {
+const UpdateSetPage = async ({ params }: { params: { setId: string } }) => {
 	const getSetCached = unstable_cache(
 		async () => SetService.getSet({ id: params.setId }),
 		[`get-set-${params.setId}`],
@@ -37,3 +33,5 @@ export default async function UpdateSetPage({
 		</main>
 	)
 }
+
+export default UpdateSetPage
