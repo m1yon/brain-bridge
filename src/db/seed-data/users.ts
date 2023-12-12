@@ -15,6 +15,13 @@ const normalUser = {
 	image: 'https://avatars.githubusercontent.com/u/37197836?v=4',
 }
 
+const normalUser2 = {
+	id: '537dc54a-138c-4704-badc-a4f5194ec90e',
+	name: 'Darth Vader',
+	email: 'vader@gmail.com',
+	image: 'https://avatars.githubusercontent.com/u/12342136?v=4',
+}
+
 export const adminUserSession: Session = {
 	user: adminUser,
 	expires: new Date().toString(),
@@ -25,4 +32,9 @@ export const normalUserSession: Session = {
 	expires: new Date().toString(),
 }
 
-export const users: Array<User> = [adminUser, normalUser]
+export const normalUser2Session: Session = {
+	user: normalUser2,
+	expires: new Date().toString(),
+}
+
+export const users: Array<User> = [adminUser, normalUser, normalUser2]

@@ -55,11 +55,15 @@ export const getSet: SetOperations['getSet'] = async ({ id }) => {
 	const session = await getSession()
 
 	const result = await db.query.sets.findFirst({
-		where: and(eq(sets.id, id), eq(sets.userId, session.user.id)),
+		where: and(eq(sets.id, id)),
 		with: { flashcards: true },
 	})
 
 	if (!result) return
+
+	if (result.userId !== session.user.id) {
+		throw new Error('Unauthorized')
+	}
 
 	return nullsToUndefined({
 		...result,
