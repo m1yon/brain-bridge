@@ -2,8 +2,6 @@ import path from 'node:path'
 import fsExtra from 'fs-extra'
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { BASE_DATABASE_PATH } from './global-setup'
-import { db } from '@/db'
-import { sets, users } from '@/db/schema'
 
 /**
  * This setup file generates individual DBs for each test runner, as well
@@ -18,6 +16,9 @@ beforeAll(async () => {
 })
 
 afterEach(async () => {
+	const { db } = await import('@/db')
+	const { sets, users } = await import('@/db/schema')
+
 	await db.delete(users)
 	await db.delete(sets)
 })

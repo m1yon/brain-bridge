@@ -1,8 +1,10 @@
 import dotenv from 'dotenv'
 import { intro, outro, spinner } from '@clack/prompts'
 
-dotenv.config()
-dotenv.config({ path: '.env.local', override: true })
+if (!process.env.DATABASE_URL) {
+	dotenv.config()
+	dotenv.config({ path: '.env.local', override: true })
+}
 
 const { SetService, UserService } = await import('@/lib/services')
 const { users } = await import('../db/seed-data/users')

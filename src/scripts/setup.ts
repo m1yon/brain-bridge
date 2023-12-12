@@ -1,9 +1,13 @@
+import '../lib/tests/setup/setup-env'
 import { intro, outro } from '@clack/prompts'
 import path from 'path'
 import fsExtra from 'fs-extra'
 import { execaCommand } from 'execa'
 
 intro('Setting up project')
+
+// start from a clean slate
+await execaCommand(`rm -rf ./test-dbs`)
 
 export const DEV_DATABASE_PATH = path.join(process.cwd(), `./test-dbs/dev.db`)
 

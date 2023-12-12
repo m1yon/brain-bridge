@@ -1,3 +1,4 @@
+import './setup-env'
 import path from 'node:path'
 import fsExtra from 'fs-extra'
 import { execaCommand } from 'execa'
@@ -14,6 +15,10 @@ export async function setup() {
 
 	await execaCommand('pnpm migrations:generate', {
 		stdio: 'inherit',
+		env: {
+			...process.env,
+			DATABASE_URL: `file:${BASE_DATABASE_PATH}`,
+		},
 	})
 	await execaCommand('pnpm migrations:run', {
 		stdio: 'inherit',
