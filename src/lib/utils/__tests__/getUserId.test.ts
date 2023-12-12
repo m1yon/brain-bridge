@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { getUserId } from './getUserId'
+import { getUserId } from '../getUserId'
 
 it('returns the correct ID for a GitHub provider', () => {
 	const id = getUserId({ id: '154322', provider: 'github' })
