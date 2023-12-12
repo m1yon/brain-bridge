@@ -3,6 +3,7 @@ import { SetService, UserService } from '.'
 import { userBuilder } from '../tests/builders/userBuilder'
 import { setBuilder } from '../tests/builders/setBuilder'
 import { normalUser2Session, normalUserSession } from '@/db/seed-data/users'
+import faker from '../tests/utils/faker'
 
 const { mockedAuth } = await vi.hoisted(async () => {
 	const { normalUserSession } = await import('@/db/seed-data/users')
@@ -149,6 +150,79 @@ describe('Data-access layer services', () => {
 			await expect(() =>
 				SetService.deleteSet({ id: createSetResult.id }),
 			).rejects.toThrowError('Unauthorized')
+		})
+
+		it('can update a set', async () => {
+			const initialSet = setBuilder.one()
+
+			const createSetResult = await SetService.createSet(initialSet)
+			expect(createSetResult).toStrictEqual({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				id: expect.stringContaining(''),
+			})
+
+			const initialGetSetResult = await SetService.getSet({
+				id: createSetResult.id,
+			})
+			expect(typeof initialGetSetResult?.id).toBe('string')
+			expect(initialGetSetResult?.name).toEqual(initialSet.name)
+			expect(initialGetSetResult?.description).toEqual(initialSet.description)
+			expect(initialGetSetResult?.userId).toEqual(normalUserSession.user.id)
+			expect(initialGetSetResult?.flashcardCount).toEqual(
+				initialSet.flashcardCount,
+			)
+
+			initialSet.flashcards.forEach((expectedFlashcard, index) => {
+				const resultFlashcard = initialGetSetResult?.flashcards[index]
+
+				expect(typeof resultFlashcard?.id).toBe('string')
+				expect(resultFlashcard?.term).toBe(expectedFlashcard.term)
+				expect(resultFlashcard?.definition).toBe(expectedFlashcard.definition)
+				expect(resultFlashcard?.userId).toBe(normalUserSession.user.id)
+			})
+
+			const updatedFlashcards =
+				initialGetSetResult?.flashcards.map((flashcard) => {
+					return {
+						...flashcard,
+						term: faker.lorem.word(),
+						definition: faker.lorem.sentence(),
+					}
+				}) ?? []
+
+			const updatedSet = {
+				...setBuilder.one(),
+				flashcards: updatedFlashcards,
+				flashcardCount: updatedFlashcards.length,
+			}
+
+			const updateSetResult = await SetService.updateSet({
+				id: createSetResult.id,
+				name: updatedSet.name,
+				description: updatedSet.description,
+				flashcards: updatedSet.flashcards,
+			})
+			expect(updateSetResult).toStrictEqual({
+				success: true,
+			})
+
+			const newGetSetResult = await SetService.getSet({
+				id: createSetResult.id,
+			})
+			expect(typeof newGetSetResult?.id).toBe('string')
+			expect(newGetSetResult?.name).toEqual(updatedSet.name)
+			expect(newGetSetResult?.description).toEqual(updatedSet.description)
+			expect(newGetSetResult?.userId).toEqual(normalUserSession.user.id)
+			expect(newGetSetResult?.flashcardCount).toEqual(updatedSet.flashcardCount)
+
+			updatedSet.flashcards.forEach((expectedFlashcard, index) => {
+				const resultFlashcard = newGetSetResult?.flashcards[index]
+
+				expect(typeof resultFlashcard?.id).toBe('string')
+				expect(resultFlashcard?.term).toBe(expectedFlashcard.term)
+				expect(resultFlashcard?.definition).toBe(expectedFlashcard.definition)
+				expect(resultFlashcard?.userId).toBe(normalUserSession.user.id)
+			})
 		})
 	})
 

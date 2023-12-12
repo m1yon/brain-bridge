@@ -90,23 +90,23 @@ export const deleteSet: SetOperations['deleteSet'] = async ({ id }) => {
 
 export const updateSet: SetOperations['updateSet'] = async (args) => {
 	const session = await getSession()
+	const set = await getSet({ id: args.id })
+
+	if (set?.userId !== session.user.id) {
+		throw new Error('Unauthorized')
+	}
 
 	await db.transaction(async (tx) => {
 		await tx
 			.update(sets)
 			.set({ name: args.name, description: args.description })
-			.where(and(eq(sets.id, args.id), eq(sets.userId, session.user.id)))
+			.where(and(eq(sets.id, args.id)))
 
-		for (const flashcard of args.flashcards) {
+		for (const { id, term, definition } of args.flashcards) {
 			await tx
 				.update(flashcards)
-				.set(flashcard)
-				.where(
-					and(
-						eq(flashcards.id, flashcard.id),
-						eq(flashcards.userId, session.user.id),
-					),
-				)
+				.set({ term, definition })
+				.where(and(eq(flashcards.id, id)))
 		}
 	})
 
