@@ -1,3 +1,4 @@
+import './mock-setup'
 import path from 'node:path'
 import fsExtra from 'fs-extra'
 import { afterAll, afterEach, beforeAll } from 'vitest'
