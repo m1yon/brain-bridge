@@ -25,7 +25,6 @@ describe('Data-access layer services', () => {
 			const expectedSet = setBuilder.one()
 
 			const createSetResult = await SetService.createSet(expectedSet)
-
 			expect(createSetResult).toStrictEqual({
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				id: expect.stringContaining(''),
@@ -40,7 +39,7 @@ describe('Data-access layer services', () => {
 			expect(resultSet?.flashcardCount).toEqual(expectedSet.flashcardCount)
 		})
 
-		it('can create a set and immediately view the specific set', async () => {
+		it('can create a set', async () => {
 			const expectedSet = setBuilder.one()
 
 			const createSetResult = await SetService.createSet(expectedSet)
@@ -49,7 +48,6 @@ describe('Data-access layer services', () => {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				id: expect.stringContaining(''),
 			})
-
 			const getSetResult = await SetService.getSet({ id: createSetResult.id })
 
 			expect(typeof getSetResult?.id).toBe('string')
@@ -73,7 +71,6 @@ describe('Data-access layer services', () => {
 
 			const normalUserSetCreationResult =
 				await SetService.createSet(expectedSet)
-
 			expect(normalUserSetCreationResult).toStrictEqual({
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				id: expect.stringContaining(''),
@@ -82,12 +79,10 @@ describe('Data-access layer services', () => {
 			mockedAuth.mockReturnValue(normalUser2Session)
 
 			const [normalUserResultSet] = await SetService.getSets()
-
 			expect(normalUserResultSet).toBeUndefined()
 
 			const normalUser2SetCreationResult =
 				await SetService.createSet(expectedSet)
-
 			expect(normalUser2SetCreationResult).toStrictEqual({
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				id: expect.stringContaining(''),
@@ -108,7 +103,6 @@ describe('Data-access layer services', () => {
 			const expectedSet = setBuilder.one()
 
 			const createSetResult = await SetService.createSet(expectedSet)
-
 			expect(createSetResult).toStrictEqual({
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				id: expect.stringContaining(''),
@@ -118,6 +112,42 @@ describe('Data-access layer services', () => {
 
 			await expect(() =>
 				SetService.getSet({ id: createSetResult.id }),
+			).rejects.toThrowError('Unauthorized')
+		})
+
+		it(`can delete a set`, async () => {
+			const expectedSet = setBuilder.one()
+
+			const createSetResult = await SetService.createSet(expectedSet)
+
+			expect(createSetResult).toStrictEqual({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				id: expect.stringContaining(''),
+			})
+
+			const { success } = await SetService.deleteSet({ id: createSetResult.id })
+			expect(success).toBe(true)
+
+			const setList = await SetService.getSets()
+			expect(setList).toStrictEqual([])
+
+			const specificSet = await SetService.getSet({ id: createSetResult.id })
+			expect(specificSet).toBeUndefined()
+		})
+
+		it(`blocks the user from trying to delete another user's sets`, async () => {
+			const expectedSet = setBuilder.one()
+
+			const createSetResult = await SetService.createSet(expectedSet)
+			expect(createSetResult).toStrictEqual({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				id: expect.stringContaining(''),
+			})
+
+			mockedAuth.mockReturnValue(normalUser2Session)
+
+			await expect(() =>
+				SetService.deleteSet({ id: createSetResult.id }),
 			).rejects.toThrowError('Unauthorized')
 		})
 	})

@@ -73,17 +73,16 @@ export const getSet: SetOperations['getSet'] = async ({ id }) => {
 
 export const deleteSet: SetOperations['deleteSet'] = async ({ id }) => {
 	const session = await getSession()
+	const set = await getSet({ id })
+
+	if (set?.userId !== session.user.id) {
+		throw new Error('Unauthorized')
+	}
 
 	await db.transaction(async (tx) => {
-		await tx
-			.delete(flashcards)
-			.where(
-				and(eq(flashcards.setId, id), eq(flashcards.userId, session.user.id)),
-			)
+		await tx.delete(flashcards).where(and(eq(flashcards.setId, id)))
 
-		await tx
-			.delete(sets)
-			.where(and(eq(sets.id, id), eq(sets.userId, session.user.id)))
+		await tx.delete(sets).where(and(eq(sets.id, id)))
 	})
 
 	return { success: true }
