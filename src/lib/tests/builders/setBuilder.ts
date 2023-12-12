@@ -7,6 +7,7 @@ export const setBuilder = build<Set>({
 	fields: {
 		id: perBuild(() => faker.string.uuid()),
 		name: perBuild(() => faker.lorem.words()),
+		description: perBuild(() => faker.lorem.sentence()),
 		userId: perBuild(() => faker.string.uuid()),
 		// calculated in postBuild
 		flashcards: [],
