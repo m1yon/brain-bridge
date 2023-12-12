@@ -224,6 +224,62 @@ describe('Data-access layer services', () => {
 				expect(resultFlashcard?.userId).toBe(normalUserSession.user.id)
 			})
 		})
+
+		it(`blocks the user from trying to update another user's sets`, async () => {
+			const initialSet = setBuilder.one()
+
+			const createSetResult = await SetService.createSet(initialSet)
+			expect(createSetResult).toStrictEqual({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				id: expect.stringContaining(''),
+			})
+
+			const initialGetSetResult = await SetService.getSet({
+				id: createSetResult.id,
+			})
+			expect(typeof initialGetSetResult?.id).toBe('string')
+			expect(initialGetSetResult?.name).toEqual(initialSet.name)
+			expect(initialGetSetResult?.description).toEqual(initialSet.description)
+			expect(initialGetSetResult?.userId).toEqual(normalUserSession.user.id)
+			expect(initialGetSetResult?.flashcardCount).toEqual(
+				initialSet.flashcardCount,
+			)
+
+			initialSet.flashcards.forEach((expectedFlashcard, index) => {
+				const resultFlashcard = initialGetSetResult?.flashcards[index]
+
+				expect(typeof resultFlashcard?.id).toBe('string')
+				expect(resultFlashcard?.term).toBe(expectedFlashcard.term)
+				expect(resultFlashcard?.definition).toBe(expectedFlashcard.definition)
+				expect(resultFlashcard?.userId).toBe(normalUserSession.user.id)
+			})
+
+			const updatedFlashcards =
+				initialGetSetResult?.flashcards.map((flashcard) => {
+					return {
+						...flashcard,
+						term: faker.lorem.word(),
+						definition: faker.lorem.sentence(),
+					}
+				}) ?? []
+
+			const updatedSet = {
+				...setBuilder.one(),
+				flashcards: updatedFlashcards,
+				flashcardCount: updatedFlashcards.length,
+			}
+
+			mockedAuth.mockReturnValue(normalUser2Session)
+
+			await expect(() =>
+				SetService.updateSet({
+					id: createSetResult.id,
+					name: updatedSet.name,
+					description: updatedSet.description,
+					flashcards: updatedSet.flashcards,
+				}),
+			).rejects.toThrowError('Unauthorized')
+		})
 	})
 
 	describe('User service', () => {
