@@ -9,5 +9,6 @@ export default defineConfig({
 			'./src/lib/tests/setup/setup-env.ts',
 			'./src/lib/tests/setup/db-setup.ts',
 		],
+		restoreMocks: true,
 	},
 })
