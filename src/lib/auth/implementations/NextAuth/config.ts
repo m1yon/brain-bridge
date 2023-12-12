@@ -1,9 +1,9 @@
 import type { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
-import { UserService } from '../../../services'
 import invariant from '@/lib/utils/invariant'
 import { isProvider } from '@/lib/constants/Provider'
 import { getUserId } from '@/lib/utils/getUserId'
+import { z } from 'zod'
 
 export const authConfig = {
 	pages: {
@@ -39,18 +39,28 @@ export const authConfig = {
 
 			const userId = getUserId({ id: user.id, provider })
 
-			try {
-				await UserService.createUser({
-					id: userId,
-					name: user.name,
-					email: user.email,
-					image: user.image,
-				})
+			const result = await fetch(
+				`${
+					process.env.NODE_ENV === 'development'
+						? 'http://localhost:3000'
+						: 'https://brain-bridge.app'
+				}/api/user`,
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						userId,
+						name: user.name,
+						email: user.email,
+						image: user.image,
+					}),
+				},
+			).then((res) => res.json())
 
-				return true
-			} catch {
-				return false
-			}
+			const CreateUserOutputSchema = z.object({
+				success: z.boolean(),
+			})
+
+			return CreateUserOutputSchema.parse(result).success
 		},
 		session: ({ session, token }) => {
 			if (session.user && token.sub) {
