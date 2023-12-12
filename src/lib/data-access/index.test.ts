@@ -1,17 +1,25 @@
-import { faker } from '@faker-js/faker'
 import { describe, expect, it } from 'vitest'
-import { UserService } from '.'
-import { User } from './interfaces/IUser'
+import { SetService, UserService } from '.'
+import { userBuilder } from '../tests/builders/userBuilder'
+import { setBuilder } from '../tests/builders/setBuilder'
 
 describe('Data-access layer services', () => {
+	describe('Set service', () => {
+		it('can create a set', async () => {
+			const set = setBuilder.one()
+
+			const result = await SetService.createSet(set)
+
+			expect(result).toStrictEqual({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				id: expect.stringContaining(''),
+			})
+		})
+	})
+
 	describe('User service', () => {
 		it('can create a user', async () => {
-			const user: User = {
-				id: faker.string.uuid(),
-				email: faker.internet.email(),
-				name: faker.person.fullName(),
-				image: faker.image.avatar(),
-			}
+			const user = userBuilder.one()
 
 			const result = await UserService.createUser(user)
 

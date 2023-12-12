@@ -47,6 +47,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.29.0
     version: 0.29.0(@libsql/client@0.4.0-pre.5)(mysql2@3.6.5)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   md5:
     specifier: ^2.3.0
     version: 2.3.0
@@ -88,6 +91,9 @@ devDependencies:
   '@faker-js/faker':
     specifier: ^8.3.1
     version: 8.3.1
+  '@jackfranklin/test-data-bot':
+    specifier: ^2.1.0
+    version: 2.1.0
   '@radix-ui/react-dialog':
     specifier: ^1.0.5
     version: 1.0.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -97,6 +103,9 @@ devDependencies:
   '@types/fs-extra':
     specifier: ^11.0.4
     version: 11.0.4
+  '@types/lodash':
+    specifier: ^4.14.202
+    version: 4.14.202
   '@types/md5':
     specifier: ^2.3.5
     version: 2.3.5
@@ -1011,6 +1020,11 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
+    dev: true
+
+  /@jackfranklin/test-data-bot@2.1.0:
+    resolution: {integrity: sha512-FWcaAJ3nJGxQCUQPeQy0DGgg4eBLJ5BNLjNyGBahf+uVbrOsdBUTu3yYkcHzBGJiqX9NzH+iPxRCg1Qq0MGxgA==}
+    engines: {node: '>=12'}
     dev: true
 
   /@jest/schemas@29.6.3:
@@ -2026,6 +2040,10 @@ packages:
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
     dependencies:
       '@types/node': 20.9.0
+    dev: true
+
+  /@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
     dev: true
 
   /@types/md5@2.3.5:
@@ -4334,7 +4352,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /long@5.2.3:
     resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
