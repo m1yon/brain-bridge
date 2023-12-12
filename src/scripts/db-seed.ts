@@ -6,7 +6,7 @@ if (!process.env.DATABASE_URL) {
 	dotenv.config({ path: '.env.local', override: true })
 }
 
-const { SetService, UserService } = await import('@/lib/services')
+const { SetService, UserService } = await import('@/lib/data-access')
 const { users } = await import('../db/seed-data/users')
 const { sets } = await import('../db/seed-data/sets')
 

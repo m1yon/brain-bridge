@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 import { action } from './client'
-import { SetService } from '@/lib/services'
+import { SetService } from '@/lib/data-access'
 import { revalidateTag } from 'next/cache'
 import { getSession } from '../auth/implementations/NextAuth/operations'
 

@@ -1,5 +1,5 @@
 import DeleteSetDialog from '@/components/sets/DeleteSetDialog'
-import { SetService } from '@/lib/services'
+import { SetService } from '@/lib/data-access'
 import { Metadata } from 'next'
 import { Badge } from '@/components/primitives/Badge'
 import { Button } from '@/components/primitives/Button'

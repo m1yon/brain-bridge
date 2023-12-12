@@ -1,8 +1,8 @@
 'use server'
 
-import { AuthService } from '@/lib/services'
 import { z } from 'zod'
 import { ProviderSchema } from '@/lib/constants/Provider'
+import { AuthService } from '../auth'
 
 // redirects cannot be called in try/catch blocks (actions wrapper)
 export const signOut = async () => {

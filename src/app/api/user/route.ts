@@ -1,4 +1,4 @@
-import { UserService } from '@/lib/services'
+import { UserService } from '@/lib/data-access'
 import { z } from 'zod'
 
 const CreateUserInputSchema = z.object({

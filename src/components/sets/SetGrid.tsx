@@ -1,9 +1,10 @@
-import { AuthService, SetService } from '@/lib/services'
+import { SetService } from '@/lib/data-access'
 import Set from './Set'
 import { Button } from '../primitives/Button'
 import { PlusIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
+import { AuthService } from '@/lib/auth'
 
 const SetGrid = async () => {
 	const session = await AuthService.getSession()
