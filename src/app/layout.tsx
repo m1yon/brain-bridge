@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
 	title: 'Brain Bridge',
 	description:
-		'Open-source alternative to Quizlet built with the Next.js app directory',
+		'Open-source learning platform built with the Next.js app directory',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
