@@ -1,9 +1,10 @@
-const prefix = 'Invariant failed'
+const prefix: string = 'Invariant failed'
 
-export default function invariant<T>(
-	condition: T,
+export default function invariant(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	condition: any,
 	message?: string | (() => string),
-): asserts condition is NonNullable<T> {
+): asserts condition {
 	if (condition) {
 		return
 	}

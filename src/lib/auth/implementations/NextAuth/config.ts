@@ -32,10 +32,10 @@ export const authConfig = {
 			invariant(user.name, 'user.name is required')
 			invariant(user.email, 'user.email is required')
 			invariant(user.image, 'user.image is required')
-
-			if (!isProvider(provider)) {
-				throw new Error(`expected a valid provider, got "${provider}"`)
-			}
+			invariant(
+				isProvider(provider),
+				`expected a valid provider, got "${provider}"`,
+			)
 
 			const userId = getUserId({ id: user.id, provider })
 
